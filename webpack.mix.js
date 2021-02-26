@@ -12,6 +12,7 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
-        //
-    ]);
+    .vue()
+    .copy("resources/admin_lte/", "public/admin_lte/", false)
+    .copy("resources/bower_components/", "public/bower_components/", false)
+    .sass('resources/sass/app.scss', 'public/assets/css');
