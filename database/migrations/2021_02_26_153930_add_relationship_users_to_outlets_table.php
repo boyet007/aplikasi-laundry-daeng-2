@@ -13,7 +13,7 @@ class AddRelationshipUsersToOutletsTable extends Migration
      */
     public function up()
     {
-        Schema::table('outlets', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->foreign('outlet_id')->references('id')->on('outlets');
         });
     }
@@ -25,7 +25,7 @@ class AddRelationshipUsersToOutletsTable extends Migration
      */
     public function down()
     {
-        Schema::table('outlets', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->dropForeign(['outlet_id']);
         });
     }

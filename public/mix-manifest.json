@@ -1,9 +1,9 @@
 {
     "/js/app.js": "/js/app.js",
+    "/assets/css/app.css": "/assets/css/app.css",
     "/bower_components/chart.js": "/bower_components/chart.js",
     "/bower_components/datatables.net": "/bower_components/datatables.net",
     "/bower_components/datatables.net-bs": "/bower_components/datatables.net-bs",
     "/bower_components/ion.rangeSlider": "/bower_components/ion.rangeSlider",
-    "/bower_components/morris.js": "/bower_components/morris.js",
-    "/assets/css/app.css": "/assets/css/app.css"
+    "/bower_components/morris.js": "/bower_components/morris.js"
 }
