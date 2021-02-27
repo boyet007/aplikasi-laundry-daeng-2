@@ -64,3 +64,7 @@ untuk testing SANCTUM di postman :
 - Header :
 * Accept : application/json
 * Authorization : Bearer 5|YAPa8QRpe0aoqKCUgXBxxZ20IYX7Nf2TEvdisDsw 
+
+akses folder storage oleh public :
+- php artisan storage:link
+jangna lupa set vagrant sebagai admin dahulu 

@@ -12,11 +12,11 @@ const state = () => ({
     //     phone: "847 1847"
     // },
     outlet: {
-        code: 'AB004',
-        name: 'Outlet Jatikramat',
+        code: '',
+        name: '',
         status: false,
-        address: 'Jatikramat no. 1',
-        phone: '0817 2837 1827'
+        address: '',
+        phone: ''
     },
     page: 1 //UNTUK MENCATAT PAGE PAGINATE YANG SEDANG DIAKSES
 });
