@@ -34,9 +34,14 @@
                                 >Outlets</router-link
                             >
                         </li>
-                          <li>
+                        <li>
                             <router-link :to="{ name: 'couriers.data' }"
                                 >Courier</router-link
+                            >
+                        </li>
+                        <li>
+                            <router-link :to="{ name: 'products.data' }"
+                                >Products</router-link
                             >
                         </li>
                         <li class="dropdown">

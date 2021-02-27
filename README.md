@@ -13,8 +13,8 @@
 - php artisan make:controller API/OutletController
 - php artisan make:resource UserCollection
 - php artisan make:resource OutletCollection
-
-
+- php artisan make:controller API/ProductController
+- php artisan make:resource ProductCollection
 - php artisan storage:link --> untuk menyimpan foto di folder storage dan bisa diakses oleh publik
 
 - php artisan make:controller FrontController
