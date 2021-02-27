@@ -10,7 +10,11 @@
 - php artisan migrate
 - bower install fontawesome --save
 - php artisan make:controller API/UserController
+- php artisan make:controller API/OutletController
 - php artisan make:resource UserCollection
+- php artisan make:resource OutletCollection
+
+
 - php artisan storage:link --> untuk menyimpan foto di folder storage dan bisa diakses oleh publik
 
 - php artisan make:controller FrontController
@@ -53,4 +57,10 @@
 - npm remove bootstrap-vue
 - npm install bootstrap-vue@2.0.0 --save
 
+## Catatan :
+setelah bikin auth jangan lupa hapus Auth::routes() di route untuk menghindari redirect ke laravel login
 
+untuk testing SANCTUM di postman :
+- Header :
+* Accept : application/json
+* Authorization : Bearer 5|YAPa8QRpe0aoqKCUgXBxxZ20IYX7Nf2TEvdisDsw 

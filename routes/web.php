@@ -15,6 +15,5 @@ Route::get('/info', function() {
     return phpinfo();
 });
 
-Auth::routes();
 Route::get('/{any}', [FrontController::class, 'index'])->where('any', '.*');
 

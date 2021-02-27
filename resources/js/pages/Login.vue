@@ -46,7 +46,7 @@ export default {
         return {
             data: {
                 email: 'admin@gmail.com',
-                password: 'secret',
+                password: 'monyet',
                 remember_me: false
             }
         }

@@ -3,19 +3,44 @@
         <nav class="navbar navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
-                    <router-link to="/" class="navbar-brand"><b>DW</b>Laundry</router-link>
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                    <router-link to="/" class="navbar-brand"
+                        ><b>DW</b>Laundry</router-link
+                    >
+                    <button
+                        type="button"
+                        class="navbar-toggle collapsed"
+                        data-toggle="collapse"
+                        data-target="#navbar-collapse"
+                    >
                         <i class="fa fa-bars"></i>
                     </button>
                 </div>
 
-                <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                <div
+                    class="collapse navbar-collapse pull-left"
+                    id="navbar-collapse"
+                >
                     <ul class="nav navbar-nav">
-                        <li class="active"><router-link to="/">Home <span class="sr-only">(current)</span></router-link></li>
-
-                        <li><router-link :to="{ name: 'outlets.data' }">Outlets</router-link></li>
+                        <li class="active">
+                            <router-link to="/"
+                                >Home
+                                <span class="sr-only"
+                                    >(current)</span
+                                ></router-link
+                            >
+                        </li>
+                        <li>
+                            <router-link :to="{ name: 'outlets.data' }"
+                                >Outlets</router-link
+                            >
+                        </li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+                            <a
+                                href="#"
+                                class="dropdown-toggle"
+                                data-toggle="dropdown"
+                                >Dropdown <span class="caret"></span
+                            ></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="#">Action</a></li>
                                 <li><a href="#">Another action</a></li>
@@ -29,14 +54,23 @@
                     </ul>
                     <form class="navbar-form navbar-left" role="search">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="navbar-search-input" placeholder="Search">
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="navbar-search-input"
+                                placeholder="Search"
+                            />
                         </div>
                     </form>
                 </div>
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
                         <li class="dropdown messages-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <a
+                                href="#"
+                                class="dropdown-toggle"
+                                data-toggle="dropdown"
+                            >
                                 <i class="fa fa-envelope-o"></i>
                                 <span class="label label-success">4</span>
                             </a>
@@ -47,32 +81,55 @@
                                         <li>
                                             <a href="#">
                                                 <div class="pull-left">
-                                                    <img src="https://via.placeholder.com/160" class="img-circle" alt="User Image">
+                                                    <img
+                                                        src="https://via.placeholder.com/160"
+                                                        class="img-circle"
+                                                        alt="User Image"
+                                                    />
                                                 </div>
                                                 <h4>
                                                     Support Team
-                                                    <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                                    <small
+                                                        ><i
+                                                            class="fa fa-clock-o"
+                                                        ></i>
+                                                        5 mins</small
+                                                    >
                                                 </h4>
-                                                <p>Why not buy a new awesome theme?</p>
+                                                <p>
+                                                    Why not buy a new awesome
+                                                    theme?
+                                                </p>
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="footer"><a href="#">See All Messages</a></li>
+                                <li class="footer">
+                                    <a href="#">See All Messages</a>
+                                </li>
                             </ul>
                         </li>
                         <li class="dropdown notifications-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <a
+                                href="#"
+                                class="dropdown-toggle"
+                                data-toggle="dropdown"
+                            >
                                 <i class="fa fa-bell-o"></i>
                                 <span class="label label-warning">10</span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li class="header">You have 10 notifications</li>
+                                <li class="header">
+                                    You have 10 notifications
+                                </li>
                                 <li>
                                     <ul class="menu">
                                         <li>
                                             <a href="#">
-                                                <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                                                <i
+                                                    class="fa fa-users text-aqua"
+                                                ></i>
+                                                5 new members joined today
                                             </a>
                                         </li>
                                     </ul>
@@ -81,7 +138,11 @@
                             </ul>
                         </li>
                         <li class="dropdown tasks-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <a
+                                href="#"
+                                class="dropdown-toggle"
+                                data-toggle="dropdown"
+                            >
                                 <i class="fa fa-flag-o"></i>
                                 <span class="label label-danger">9</span>
                             </a>
@@ -93,11 +154,22 @@
                                             <a href="#">
                                                 <h3>
                                                     Design some buttons
-                                                    <small class="pull-right">20%</small>
+                                                    <small class="pull-right"
+                                                        >20%</small
+                                                    >
                                                 </h3>
                                                 <div class="progress xs">
-                                                    <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                        <span class="sr-only">20% Complete</span>
+                                                    <div
+                                                        class="progress-bar progress-bar-aqua"
+                                                        style="width: 20%"
+                                                        role="progressbar"
+                                                        aria-valuenow="20"
+                                                        aria-valuemin="0"
+                                                        aria-valuemax="100"
+                                                    >
+                                                        <span class="sr-only"
+                                                            >20% Complete</span
+                                                        >
                                                     </div>
                                                 </div>
                                             </a>
@@ -110,14 +182,29 @@
                             </ul>
                         </li>
                         <li class="dropdown user user-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="https://via.placeholder.com/160" class="user-image" alt="User Image">
+                            <a
+                                href="#"
+                                class="dropdown-toggle"
+                                data-toggle="dropdown"
+                            >
+                                <img
+                                    src="https://via.placeholder.com/160"
+                                    class="user-image"
+                                    alt="User Image"
+                                />
                                 <span class="hidden-xs">Alexander Pierce</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="user-header">
-                                    <img src="https://via.placeholder.com/160" class="img-circle" alt="User Image">
-                                    <p>Alexander Pierce - Web Developer <small>Member since Nov. 2012</small></p>
+                                    <img
+                                        src="https://via.placeholder.com/160"
+                                        class="img-circle"
+                                        alt="User Image"
+                                    />
+                                    <p>
+                                        Alexander Pierce - Web Developer
+                                        <small>Member since Nov. 2012</small>
+                                    </p>
                                 </li>
                                 <li class="user-body">
                                     <div class="row">
@@ -134,10 +221,18 @@
                                 </li>
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                        <a
+                                            href="#"
+                                            class="btn btn-default btn-flat"
+                                            >Profile</a
+                                        >
                                     </div>
                                     <div class="pull-right">
-                                        <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                        <a
+                                            href="#"
+                                            class="btn btn-default btn-flat"
+                                            >Sign out</a
+                                        >
                                     </div>
                                 </li>
                             </ul>
@@ -150,7 +245,5 @@
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
