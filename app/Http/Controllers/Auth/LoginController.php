@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
@@ -48,19 +49,21 @@ class LoginController extends Controller
             'password' => 'required'
         ]);
 
+        $credentials = $request->only('email', 'password');
+
         //ADA 3 VALUE YANG DIKIRIMKAN, YAKNI: EMAIL, PASSWORD DAN REMEMBER_ME
         //AMBIL SEMUA REQUEST TERSEBUT KECUALI REMEMBER ME KARENA YANG DIBUTUHKAN
         //UNTUK OTENTIKASI ADALAH EMAIL DAN PASSWORD
         $auth = $request->except(['remember_me']);
 
         //MELAKUKAN PROSES OTENTIKASI
-        if (Auth::attempt($auth, $request->remember_me)) {
+        if (Auth::attempt($credentials)) {
             //APABILA BERHASIL, GENERATE API_TOKEN MENGGUNAKAN STRING RANDOM
-            auth()->user()->update(['api_token' => Str::random(40)]);
+            Auth::user()->update(['api_token' => Str::random(40)]);
             //KEMUDIAN KIRIM RESPONSENYA KE CLIENT UNTUK DIPROSES LEBIH LANJUT
             return response()->json(['status' => 'success', 'data' => auth()->user()->api_token], 200);
         }
         //APABILA GAGAL, KIRIM RESPONSE LAGI KE BAHWA PERMINTAAN GAGAL
-        return response()->json(['status' => 'failed']);
+        return response()->json(['status' => 'failed2']);
     }
 }
