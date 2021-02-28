@@ -57,15 +57,15 @@ class LoginController extends Controller
         $auth = $request->except(['remember_me']);
 
         //MELAKUKAN PROSES OTENTIKASI
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials, $request->remember_me)) {
             //APABILA BERHASIL, GENERATE API_TOKEN MENGGUNAKAN STRING RANDOM
             // Auth::user()->update(['api_token' => Str::random(40)]);
             $tokenResult =Auth::user()->createToken('laundryToken')->plainTextToken;
             //KEMUDIAN KIRIM RESPONSENYA KE CLIENT UNTUK DIPROSES LEBIH LANJUT
-            //return response()->json(['status' => 'success', 'Token' => $tokenResult], 200);
+            //return respon\se()->json(['status' => 'success', 'Token' => $tokenResult], 200);
             return response()->json(['status' => 'success', 'data' => $tokenResult], 200);
         }
         //APABILA GAGAL, KIRIM RESPONSE LAGI KE BAHWA PERMINTAAN GAGAL
-        return response()->json(['status' => 'failed2']);
+        return response()->json(['status' => 'failed']);
     }
 }

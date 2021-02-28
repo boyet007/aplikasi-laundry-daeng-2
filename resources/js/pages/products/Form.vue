@@ -75,10 +75,10 @@ export default {
         return {
             //DEFINISIKAM VARIABLE
             product: {
-                name: '',
-                unit_type: '',
-                price: '',
-                laundry_type: ''
+                name: 'Kancut Wanita',
+                unit_type: 'Potong',
+                price: '10000',
+                laundry_type: '1'
             },
             laundry_type: '',
             showForm: false //DEFAULT FORM UNTUK MENAMBAHKAN JENIS LAUNDRY ADALAH FALSE, YANG BERARTI FORM TIDAK DITAMPILKAN

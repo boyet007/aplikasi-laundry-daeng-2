@@ -66,6 +66,7 @@ const actions = {
     addProductLaundry({ commit }, payload) {
         return new Promise((resolve, reject) => {
             //MENGIRIM REQUEST UNTUK MENAMBAHKAN DATA PRODUCT BARU
+            console.log('payload', payload);
             $axios
                 .post(`/product`, payload)
                 .then(response => {

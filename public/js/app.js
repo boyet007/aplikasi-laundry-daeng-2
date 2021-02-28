@@ -3395,10 +3395,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       //DEFINISIKAM VARIABLE
       product: {
-        name: '',
-        unit_type: '',
-        price: '',
-        laundry_type: ''
+        name: 'Kancut Wanita',
+        unit_type: 'Potong',
+        price: '10000',
+        laundry_type: '1'
       },
       laundry_type: '',
       showForm: false //DEFAULT FORM UNTUK MENAMBAHKAN JENIS LAUNDRY ADALAH FALSE, YANG BERARTI FORM TIDAK DITAMPILKAN
@@ -4416,6 +4416,7 @@ var actions = {
     var commit = _ref4.commit;
     return new Promise(function (resolve, reject) {
       //MENGIRIM REQUEST UNTUK MENAMBAHKAN DATA PRODUCT BARU
+      console.log('payload', payload);
       _api_js__WEBPACK_IMPORTED_MODULE_0__.default.post("/product", payload).then(function (response) {
         resolve(response.data);
       })["catch"](function (error) {
