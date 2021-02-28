@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Http\Resources\UserCollection;
 use DB;
 use File;
-//use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
@@ -122,17 +122,17 @@ class UserController extends Controller
         return new UserCollection($user);
     }
 
-    // public function getUserLogin()
-    // {
-    //     $user = request()->user(); //MENGAMBIL USER YANG SEDANG LOGIN
-    //     $permissions = [];
-    //     foreach (Permission::all() as $permission) {
-    //         //JIKA USER YANG SEDANG LOGIN PUNYA PERMISSION TERKAIT
-    //         if (request()->user()->can($permission->name)) {
-    //             $permissions[] = $permission->name; //MAKA PERMISSION TERSEBUT DITAMBAHKAN
-    //         }
-    //     }
-    //     $user['permission'] = $permissions; //PERMISSION YANG DIMILIKI DIMASUKKAN KE DALAM DATA USER.
-    //     return response()->json(['status' => 'success', 'data' => $user]);
-    // }
+    public function getUserLogin()
+    {
+        $user = request()->user(); //MENGAMBIL USER YANG SEDANG LOGIN
+        $permissions = [];
+        foreach (Permission::all() as $permission) {
+            //JIKA USER YANG SEDANG LOGIN PUNYA PERMISSION TERKAIT
+            if (request()->user()->can($permission->name)) {
+                $permissions[] = $permission->name; //MAKA PERMISSION TERSEBUT DITAMBAHKAN
+            }
+        }
+        $user['permission'] = $permissions; //PERMISSION YANG DIMILIKI DIMASUKKAN KE DALAM DATA USER.
+        return response()->json(['status' => 'success', 'data' => $user]);
+    }
 }

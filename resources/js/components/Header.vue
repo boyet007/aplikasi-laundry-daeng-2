@@ -29,36 +29,36 @@
                                 ></router-link
                             >
                         </li>
-                        <li>
+                        <li v-if="$can('read outlets')">
                             <router-link :to="{ name: 'outlets.data' }"
                                 >Outlets</router-link
                             >
                         </li>
-                        <li>
+                        <li v-if="$can('read couriers')">
                             <router-link :to="{ name: 'couriers.data' }"
                                 >Courier</router-link
                             >
                         </li>
-                        <li>
+                        <li v-if="$can('read products')">
                             <router-link :to="{ name: 'products.data' }"
                                 >Products</router-link
                             >
                         </li>
-                        <li class="dropdown">
+                        <li class="dropdown" v-if="authenticated.role == 0">
                             <a
-                                href="#"
+                                href="javascript:void(0)"
                                 class="dropdown-toggle"
                                 data-toggle="dropdown"
-                                >Dropdown <span class="caret"></span
+                                aria-expanded="true"
+                                >Settings <span class="caret"></span
                             ></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">One more separated link</a></li>
+                                <li>
+                                    <router-link
+                                        :to="{ name: 'role.permissions' }"
+                                        >Role Permission</router-link
+                                    >
+                                </li>
                             </ul>
                         </li>
                     </ul>
@@ -202,7 +202,7 @@
                                     class="user-image"
                                     alt="User Image"
                                 />
-                                <span class="hidden-xs">Alexander Pierce</span>
+                                <span class="hidden-xs">{{ authenticated.name }}</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="user-header">
@@ -212,8 +212,7 @@
                                         alt="User Image"
                                     />
                                     <p>
-                                        Alexander Pierce - Web Developer
-                                        <small>Member since Nov. 2012</small>
+                                        {{ authenticated.name}}
                                     </p>
                                 </li>
                                 <li class="user-body">
@@ -239,7 +238,7 @@
                                     </div>
                                     <div class="pull-right">
                                         <a
-                                            href="#"
+                                            href="javascript:void(0)" @click="logout"
                                             class="btn btn-default btn-flat"
                                             >Sign out</a
                                         >
@@ -255,5 +254,25 @@
 </template>
 
 <script>
-export default {};
+import { mapState } from "vuex";
+export default {
+    computed: {
+        ...mapState("user", {
+            authenticated: state => state.authenticated //ME-LOAD STATE AUTHENTICATED
+        })
+    },
+    methods: {
+        //KETIKA TOMBOL LOGOUT DITEKAN, FUNGSI INI DIJALANKAN
+        logout() {
+            return new Promise((resolve, reject) => {
+                localStorage.removeItem("token"); //MENGHAPUS TOKEN DARI LOCALSTORAGE
+                resolve();
+            }).then(() => {
+                //MEMPERBAHARUI STATE TOKEN
+                this.$store.state.token = localStorage.getItem("token");
+                this.$router.push("/login"); //REDIRECT KE PAGE LOGIN
+            });
+        }
+    }
+};
 </script>
