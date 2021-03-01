@@ -45,8 +45,8 @@ export default {
     data() {
         return {
             data: {
-                email: 'admin@gmail.com',
-                password: 'monyet',
+                email: 'sandikta@gmail.com',
+                password: 'secret',
                 remember_me: false
             }
         }
@@ -71,7 +71,6 @@ export default {
       	//KETIKA TOMBOL LOGIN DITEKAN, MAKA AKAN MEMINCU METHODS postLogin()
         postLogin() {
             //DIMANA TOMBOL INI AKAN MENJALANKAN FUNGSI submit() DENGAN MENGIRIMKAN DATA YANG DIBUTUHKAN
-            console.log('data', this.data)
             this.submit(this.data).then(() => {
                 //KEMUDIAN DI CEK VALUE DARI isAuth
                 //APABILA BERNILAI TRUE

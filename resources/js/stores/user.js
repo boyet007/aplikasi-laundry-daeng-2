@@ -101,6 +101,7 @@ const actions = {
         return new Promise((resolve, reject) => {
             commit('CLEAR_ERRORS', '', { root: true })
                 //KIRIM PERMINTAAN KE BACKEND
+            console.log('setRole', payload)
             $axios.post(`/set-role-permission`, payload)
                 .then((response) => {
                     resolve(response.data)

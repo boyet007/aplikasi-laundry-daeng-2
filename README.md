@@ -16,6 +16,8 @@
 - php artisan make:controller API/ProductController
 - php artisan make:resource ProductCollection
 - php artisan storage:link --> untuk menyimpan foto di folder storage dan bisa diakses oleh publik
+- php artisan make:controller API/ExpensesController
+- php artisan make:resource ExpenseCollection
 
 - php artisan make:controller FrontController
 - php artisan db:seed
@@ -25,31 +27,33 @@
 - npm install vue-router
 - npm i vue bootstrap-vue bootstrap
 - npm install axios
+- npm install moment --save
 
 ## Spatie Role User
-- composer require spatie/laravel-permission
-- php artisan permission:create-role superadmin
-- php artisan permission:create-role admin
-- php artisan permission:create-role finance
-- php artisan permission:create-role courier
+composer require spatie/laravel-permission
 
-- php artisan permission:create-permission "read outlets"
-- php artisan permission:create-permission "create outlets"
-- php artisan permission:create-permission "edit outlets"
-- php artisan permission:create-permission "delete outlets"
-
-- php artisan permission:create-permission "read couriers"
-- php artisan permission:create-permission "create couriers"
-- php artisan permission:create-permission "edit couriers"
-- php artisan permission:create-permission "delete couriers"
-
-- php artisan permission:create-permission "read products"
-- php artisan permission:create-permission "create products"
-- php artisan permission:create-permission "edit products"
-- php artisan permission:create-permission "delete products"
+- paket command spattie : 
+php artisan permission:create-role superadmin
+php artisan permission:create-role admin
+php artisan permission:create-role finance
+php artisan permission:create-role courier
+php artisan permission:create-permission "read outlets"
+php artisan permission:create-permission "create outlets"
+php artisan permission:create-permission "edit outlets"
+php artisan permission:create-permission "delete outlets"
+php artisan permission:create-permission "read couriers"
+php artisan permission:create-permission "create couriers"
+php artisan permission:create-permission "edit couriers"
+php artisan permission:create-permission "delete couriers"
+php artisan permission:create-permission "read products"
+php artisan permission:create-permission "create products"
+php artisan permission:create-permission "edit products"
+php artisan permission:create-permission "delete products"
+php artisan make:migration add_field_status_to_expenses_table
+php artisan make:notification ExpensesNotification
+php artisan notifications:table
 
 - php artisan make:controller API/RolePermissionController
-
 - php artisan make:migration add_field_status_to_expenses_table
 
 

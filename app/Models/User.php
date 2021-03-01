@@ -46,13 +46,13 @@ class User extends Authenticatable
 
     public function scopeCourier($query)
     {
-        return $query->where('role', 3);
+        return $query->where('role', 4);
     }
 
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = bcrypt($value);
-    }
+    // public function setPasswordAttribute($value)
+    // {
+    //      $this->attributes['password'] = bcrypt($value);
+    // }
 
     public function getNameAttribute($value)
     {

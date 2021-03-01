@@ -44,6 +44,11 @@
                                 >Products</router-link
                             >
                         </li>
+                        <li>
+                            <router-link :to="{ name: 'expenses.data' }"
+                                >Expenses</router-link
+                            >
+                        </li>
                         <li class="dropdown" v-if="authenticated.role == 0">
                             <a
                                 href="javascript:void(0)"
@@ -81,11 +86,16 @@
                                 class="dropdown-toggle"
                                 data-toggle="dropdown"
                             >
-                                <i class="fa fa-envelope-o"></i>
-                                <span class="label label-success">4</span>
+                                <i class="fa fa-bell-o"></i>
+                                <!-- FUNGSI INI UNTUK MENGHITUNG JUMLAH DATA NOTIFIKASI YANG ADA -->
+                                <span class="label label-success">{{
+                                    notifications.length
+                                }}</span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li class="header">You have 4 messages</li>
+                                <li class="header">
+                                    You have {{ notifications.length }} messages
+                                </li>
                                 <li>
                                     <ul class="menu">
                                         <li>
@@ -98,25 +108,34 @@
                                                     />
                                                 </div>
                                                 <h4>
-                                                    Support Team
+                                                    <!-- TAMPILKAN NAMA PENGIRIM NOTIFIKASI -->
+                                                    {{ row.data.sender_name }}
+                                                    <!-- TAMPILKAN WAKTU NOTIFIKASI -->
                                                     <small
                                                         ><i
                                                             class="fa fa-clock-o"
                                                         ></i>
-                                                        5 mins</small
+                                                        {{
+                                                            row.created_at
+                                                                | formatDate
+                                                        }}</small
                                                     >
                                                 </h4>
                                                 <p>
-                                                    Why not buy a new awesome
-                                                    theme?
+                                                    {{
+                                                        row.data.expenses.description.substr(
+                                                            0,
+                                                            30
+                                                        )
+                                                    }}
                                                 </p>
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="footer">
+                                <!-- <li class="footer">
                                     <a href="#">See All Messages</a>
-                                </li>
+                                </li> -->
                             </ul>
                         </li>
                         <li class="dropdown notifications-menu">
@@ -198,21 +217,27 @@
                                 data-toggle="dropdown"
                             >
                                 <img
-                                    src="https://via.placeholder.com/160"
+                                    :src="
+                                        `/storage/couriers/${authenticated.photo}`
+                                    "
                                     class="user-image"
                                     alt="User Image"
                                 />
-                                <span class="hidden-xs">{{ authenticated.name }}</span>
+                                <span class="hidden-xs">{{
+                                    authenticated.name
+                                }}</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="user-header">
                                     <img
-                                        src="https://via.placeholder.com/160"
+                                        :src="
+                                            `/storage/couriers/${authenticated.photo}`
+                                        "
                                         class="img-circle"
                                         alt="User Image"
                                     />
                                     <p>
-                                        {{ authenticated.name}}
+                                        {{ authenticated.name }}
                                     </p>
                                 </li>
                                 <li class="user-body">
@@ -238,7 +263,8 @@
                                     </div>
                                     <div class="pull-right">
                                         <a
-                                            href="javascript:void(0)" @click="logout"
+                                            href="javascript:void(0)"
+                                            @click="logout"
                                             class="btn btn-default btn-flat"
                                             >Sign out</a
                                         >
@@ -254,14 +280,31 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from 'vuex'
+import moment from 'moment'
 export default {
     computed: {
         ...mapState("user", {
             authenticated: state => state.authenticated //ME-LOAD STATE AUTHENTICATED
+        }),
+        ...mapState("notification", {
+            notifications: state => state.notifications //MENGAMBIL STATE NOTIFICATIONS
         })
     },
     methods: {
+        ...mapActions("notification", ["readNotification"]), //DEFINISIKAN FUNGSI UNTUK READ NOTIF
+
+        //KETIKA NOTIFIKASI DI KLIK MAKA AKAN MENJALANKAN FUNGSI INI
+        readNotif(row) {
+            //MENGIRIMKAN REQUEST KE SERVER UNTUK MENANDAI BAHWA NOTIFIKASI TELAH DI BACA
+            //KEMUDIAN SELANJUTNYA KITA REDIRECT KE HALAMAN VIEW EXPENSES
+            this.readNotification({ id: row.id }).then(() =>
+                this.$router.push({
+                    name: "expenses.view",
+                    params: { id: row.data.expenses.id }
+                })
+            );
+        },
         //KETIKA TOMBOL LOGOUT DITEKAN, FUNGSI INI DIJALANKAN
         logout() {
             return new Promise((resolve, reject) => {
@@ -272,6 +315,12 @@ export default {
                 this.$store.state.token = localStorage.getItem("token");
                 this.$router.push("/login"); //REDIRECT KE PAGE LOGIN
             });
+        }
+    },
+    filters: {
+        //UNTUK MENGUBAH FORMAT TANGGAL MENJADI TIME AGO
+        formatDate(val) {
+            return moment(new Date(val)).fromNow();
         }
     }
 };

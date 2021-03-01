@@ -36,6 +36,7 @@ class UserController extends Controller
         DB::beginTransaction();
         try {
             $name = NULL;
+            $password = bcrypt($request->password);
             //APABILA ADA FILE YANG DIKIRIMKAN
             if ($request->hasFile('photo')) {
                 //MAKA FILE TERSEBUT AKAN DISIMPAN KE STORAGE/APP/PUBLIC/COURIERS
@@ -47,11 +48,11 @@ class UserController extends Controller
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' => $request->password,
+                'password' => $password,
                 'role' => $request->role,
                 'photo' => $name,
                 'outlet_id' => $request->outlet_id,
-                'role' => 3
+                'role' => 4
             ]);
             //$user->assignRole('courier');
             DB::commit();
