@@ -36,21 +36,23 @@ const app = new Vue({
             if (this.isAuth) {
                 //MAKA INISIASI FUNGSI BROADCASTER DENGAN KONFIGURASI BERIKUT
                 window.Echo = new Echo({
-                    broadcaster: "pusher",
+                    broadcaster: 'pusher',
                     key: process.env.MIX_PUSHER_APP_KEY, //VALUENYA DI AMBIL DARI FILE .ENV
                     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
                     encrypted: false,
                     auth: {
                         headers: {
-                            Authorization: "Bearer " + this.token
-                        }
+                            Authorization: 'Bearer ' + this.token,
+                            Accept: 'application/json'
+                        },
                     }
                 });
 
                 if (typeof this.user_authenticated.id != "undefined") {
                     //KEMUDIAN KITA MENGAKSES CHANNEL BROADCAST SECARA PRIVATE
+                    //RUBAH App.User MENJADI App.Models.User KALO PAKE LARAVEL 8
                     window.Echo.private(
-                        `App.User.${this.user_authenticated.id}`
+                        `App.Models.User.${this.user_authenticated.id}`
                     ).notification(() => {
                         //APABILA DITEMUKAN, MAKA KITA MENJALANKAN KEDUA FUNGSI INI
                         //UNTUK MENGAMBIL DATA TERBARU

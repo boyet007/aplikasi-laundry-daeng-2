@@ -16,22 +16,22 @@ const actions = {
         return new Promise((resolve, reject) => {
             //REQUEST KE SERVER UNTUK MENGAMBIL NOTIFIKASI
             $axios.get(`/notification`)
-            .then((response) => {
-                //DATA YANG DITERIMA DI COMMIT KE MUTATIONS ASSING_DATA
-                commit('ASSIGN_DATA', response.data.data)
-                resolve(response.data)
-            })
+                .then((response) => {
+                    //DATA YANG DITERIMA DI COMMIT KE MUTATIONS ASSING_DATA
+                    commit('ASSIGN_DATA', response.data.data)
+                    resolve(response.data)
+                })
         })
     },
     readNotification({ dispatch }, payload) {
         return new Promise((resolve, reject) => {
             //UNTUK MENGUPDATE DATA NOTIFIKASI BAHWA NOTIF TERSEBUT SUDAH DIBACA
             $axios.post(`/notification`, payload)
-            .then((response) => {
-                //AMBIL DATA NOTIFIKASI TERBARU
-                dispatch('getNotifications').then(() => resolve(response.data))
-            })
-        })   
+                .then((response) => {
+                    //AMBIL DATA NOTIFIKASI TERBARU
+                    dispatch('getNotifications').then(() => resolve(response.data))
+                })
+        })
     }
 }
 

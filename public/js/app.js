@@ -2151,81 +2151,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -3160,7 +3085,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$swal({
         title: "Kamu Yakin?",
         text: "Tindakan ini akan menghapus secara permanent!",
-        type: "warning",
+        icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
@@ -4763,21 +4688,23 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_9__.default({
       if (this.isAuth) {
         //MAKA INISIASI FUNGSI BROADCASTER DENGAN KONFIGURASI BERIKUT
         window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_7__.default({
-          broadcaster: "pusher",
+          broadcaster: 'pusher',
           key: "3306001f38113b0e8886",
           //VALUENYA DI AMBIL DARI FILE .ENV
           cluster: "ap1",
           encrypted: false,
           auth: {
             headers: {
-              Authorization: "Bearer " + this.token
+              Authorization: 'Bearer ' + this.token,
+              Accept: 'application/json'
             }
           }
         });
 
         if (typeof this.user_authenticated.id != "undefined") {
           //KEMUDIAN KITA MENGAKSES CHANNEL BROADCAST SECARA PRIVATE
-          window.Echo["private"]("App.User.".concat(this.user_authenticated.id)).notification(function () {
+          //RUBAH App.User MENJADI App.Models.User KALO PAKE LARAVEL 8
+          window.Echo["private"]("App.Models.User.".concat(this.user_authenticated.id)).notification(function () {
             //APABILA DITEMUKAN, MAKA KITA MENJALANKAN KEDUA FUNGSI INI
             //UNTUK MENGAMBIL DATA TERBARU
             _this.getNotifications();
@@ -71678,46 +71605,65 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("li", [
-                  _c("ul", { staticClass: "menu" }, [
-                    _c("li", [
-                      _c("a", { attrs: { href: "#" } }, [
-                        _vm._m(3),
-                        _vm._v(" "),
-                        _c("h4", [
-                          _vm._v(
-                            "\n                                                " +
-                              _vm._s(_vm.row.data.sender_name) +
-                              "\n                                                "
-                          ),
-                          _vm._v(" "),
-                          _c("small", [
-                            _c("i", { staticClass: "fa fa-clock-o" }),
-                            _vm._v(
-                              "\n                                                    " +
-                                _vm._s(_vm._f("formatDate")(_vm.row.created_at))
+                  _vm.notifications.length > 0
+                    ? _c(
+                        "ul",
+                        { staticClass: "menu" },
+                        _vm._l(_vm.notifications, function(row, index) {
+                          return _c("li", { key: index }, [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "javascript:void(0)" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.readNotif(row)
+                                  }
+                                }
+                              },
+                              [
+                                _vm._m(3, true),
+                                _vm._v(" "),
+                                _c("h4", [
+                                  _vm._v(
+                                    "\n                                                " +
+                                      _vm._s(row.data.sender_name) +
+                                      "\n                                                "
+                                  ),
+                                  _vm._v(" "),
+                                  _c("small", [
+                                    _c("i", { staticClass: "fa fa-clock-o" }),
+                                    _vm._v(
+                                      "\n                                                    " +
+                                        _vm._s(
+                                          _vm._f("formatDate")(row.created_at)
+                                        )
+                                    )
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("p", [
+                                  _vm._v(
+                                    "\n                                                " +
+                                      _vm._s(
+                                        row.data.expenses.description.substr(
+                                          0,
+                                          30
+                                        )
+                                      ) +
+                                      "\n                                            "
+                                  )
+                                ])
+                              ]
                             )
                           ])
-                        ]),
-                        _vm._v(" "),
-                        _c("p", [
-                          _vm._v(
-                            "\n                                                " +
-                              _vm._s(
-                                _vm.row.data.expenses.description.substr(0, 30)
-                              ) +
-                              "\n                                            "
-                          )
-                        ])
-                      ])
-                    ])
-                  ])
+                        }),
+                        0
+                      )
+                    : _vm._e()
                 ])
               ])
             ]),
-            _vm._v(" "),
-            _vm._m(4),
-            _vm._v(" "),
-            _vm._m(5),
             _vm._v(" "),
             _c("li", { staticClass: "dropdown user user-menu" }, [
               _c(
@@ -71760,10 +71706,10 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _vm._m(6),
+                _vm._m(4),
                 _vm._v(" "),
                 _c("li", { staticClass: "user-footer" }, [
-                  _vm._m(7),
+                  _vm._m(5),
                   _vm._v(" "),
                   _c("div", { staticClass: "pull-right" }, [
                     _c(
@@ -71850,113 +71796,6 @@ var staticRenderFns = [
         staticClass: "img-circle",
         attrs: { src: "https://via.placeholder.com/160", alt: "User Image" }
       })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "dropdown notifications-menu" }, [
-      _c(
-        "a",
-        {
-          staticClass: "dropdown-toggle",
-          attrs: { href: "#", "data-toggle": "dropdown" }
-        },
-        [
-          _c("i", { staticClass: "fa fa-bell-o" }),
-          _vm._v(" "),
-          _c("span", { staticClass: "label label-warning" }, [_vm._v("10")])
-        ]
-      ),
-      _vm._v(" "),
-      _c("ul", { staticClass: "dropdown-menu" }, [
-        _c("li", { staticClass: "header" }, [
-          _vm._v(
-            "\n                                You have 10 notifications\n                            "
-          )
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("ul", { staticClass: "menu" }, [
-            _c("li", [
-              _c("a", { attrs: { href: "#" } }, [
-                _c("i", { staticClass: "fa fa-users text-aqua" }),
-                _vm._v(
-                  "\n                                            5 new members joined today\n                                        "
-                )
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "footer" }, [
-          _c("a", { attrs: { href: "#" } }, [_vm._v("View all")])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "dropdown tasks-menu" }, [
-      _c(
-        "a",
-        {
-          staticClass: "dropdown-toggle",
-          attrs: { href: "#", "data-toggle": "dropdown" }
-        },
-        [
-          _c("i", { staticClass: "fa fa-flag-o" }),
-          _vm._v(" "),
-          _c("span", { staticClass: "label label-danger" }, [_vm._v("9")])
-        ]
-      ),
-      _vm._v(" "),
-      _c("ul", { staticClass: "dropdown-menu" }, [
-        _c("li", { staticClass: "header" }, [_vm._v("You have 9 tasks")]),
-        _vm._v(" "),
-        _c("li", [
-          _c("ul", { staticClass: "menu" }, [
-            _c("li", [
-              _c("a", { attrs: { href: "#" } }, [
-                _c("h3", [
-                  _vm._v(
-                    "\n                                                Design some buttons\n                                                "
-                  ),
-                  _c("small", { staticClass: "pull-right" }, [_vm._v("20%")])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "progress xs" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "progress-bar progress-bar-aqua",
-                      staticStyle: { width: "20%" },
-                      attrs: {
-                        role: "progressbar",
-                        "aria-valuenow": "20",
-                        "aria-valuemin": "0",
-                        "aria-valuemax": "100"
-                      }
-                    },
-                    [
-                      _c("span", { staticClass: "sr-only" }, [
-                        _vm._v("20% Complete")
-                      ])
-                    ]
-                  )
-                ])
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "footer" }, [
-          _c("a", { attrs: { href: "#" } }, [_vm._v("View all tasks")])
-        ])
-      ])
     ])
   },
   function() {

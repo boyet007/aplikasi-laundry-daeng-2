@@ -88,21 +88,18 @@
                             >
                                 <i class="fa fa-bell-o"></i>
                                 <!-- FUNGSI INI UNTUK MENGHITUNG JUMLAH DATA NOTIFIKASI YANG ADA -->
-                                <span class="label label-success">{{
-                                    notifications.length
-                                }}</span>
+                                <span class="label label-success">{{ notifications.length }}</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="header">
                                     You have {{ notifications.length }} messages
                                 </li>
                                 <li>
-                                    <ul class="menu">
-                                        <li>
-                                            <a href="#">
+                                    <ul class="menu" v-if="notifications.length > 0">
+                                        <li v-for="(row, index) in notifications" :key="index">
+                                            <a href="javascript:void(0)" @click="readNotif(row)">
                                                 <div class="pull-left">
-                                                    <img
-                                                        src="https://via.placeholder.com/160"
+                                                    <img src="https://via.placeholder.com/160"
                                                         class="img-circle"
                                                         alt="User Image"
                                                     />
@@ -136,78 +133,6 @@
                                 <!-- <li class="footer">
                                     <a href="#">See All Messages</a>
                                 </li> -->
-                            </ul>
-                        </li>
-                        <li class="dropdown notifications-menu">
-                            <a
-                                href="#"
-                                class="dropdown-toggle"
-                                data-toggle="dropdown"
-                            >
-                                <i class="fa fa-bell-o"></i>
-                                <span class="label label-warning">10</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="header">
-                                    You have 10 notifications
-                                </li>
-                                <li>
-                                    <ul class="menu">
-                                        <li>
-                                            <a href="#">
-                                                <i
-                                                    class="fa fa-users text-aqua"
-                                                ></i>
-                                                5 new members joined today
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="footer"><a href="#">View all</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown tasks-menu">
-                            <a
-                                href="#"
-                                class="dropdown-toggle"
-                                data-toggle="dropdown"
-                            >
-                                <i class="fa fa-flag-o"></i>
-                                <span class="label label-danger">9</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="header">You have 9 tasks</li>
-                                <li>
-                                    <ul class="menu">
-                                        <li>
-                                            <a href="#">
-                                                <h3>
-                                                    Design some buttons
-                                                    <small class="pull-right"
-                                                        >20%</small
-                                                    >
-                                                </h3>
-                                                <div class="progress xs">
-                                                    <div
-                                                        class="progress-bar progress-bar-aqua"
-                                                        style="width: 20%"
-                                                        role="progressbar"
-                                                        aria-valuenow="20"
-                                                        aria-valuemin="0"
-                                                        aria-valuemax="100"
-                                                    >
-                                                        <span class="sr-only"
-                                                            >20% Complete</span
-                                                        >
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="footer">
-                                    <a href="#">View all tasks</a>
-                                </li>
                             </ul>
                         </li>
                         <li class="dropdown user user-menu">
