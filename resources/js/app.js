@@ -64,7 +64,7 @@ const app = new Vue({
         }
     },
     watch: {
-        //KITA WATCH KETIKA VALUE TOKEN BERUBAH, MAKA 
+        //KITA WATCH KETIKA VALUE TOKEN BERUBAH, MAKA
         token() {
             this.initialLister() //KITA JALANKAN FUNGSI UNTUK MENGINISIASI LAGI
         },

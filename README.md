@@ -72,3 +72,6 @@ untuk testing SANCTUM di postman :
 akses folder storage oleh public :
 - php artisan storage:link
 jangna lupa set vagrant sebagai admin dahulu 
+
+## Daftar isi :
+https://daengweb.id/daftar-isi

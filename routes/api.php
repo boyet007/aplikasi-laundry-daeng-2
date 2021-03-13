@@ -7,7 +7,8 @@ use App\Http\Controllers\API\OutletController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\RolePermissionController;
-use App\Http\Controllers\API\ExpensesController;;
+use App\Http\Controllers\API\ExpensesController;
+use App\Http\Controllers\API\CustomerController;
 
 use App\Http\Controllers\API\NotificationController;
 
@@ -31,10 +32,12 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('user-lists', [UserController::class, 'userLists'])->name('user.index');
 
     Route::resource('expenses', ExpensesController::class)->except(['create', 'show']);
-    Route::resource('notification', NotificationController::class)->except(['create', 'destroy']);    
+    Route::resource('notification', NotificationController::class)->except(['create', 'destroy']);
 
     Route::post('expenses/accept', [ExpensesController::class, 'accept'])->name('expenses.accept');
     Route::post('expenses/cancel', [ExpensesController::class, 'cancelRequest'])->name('expenses.cancel');
+
+    Route::resource('customer', CustomerController::class)->except(['create', 'show']);
 });
 
 
