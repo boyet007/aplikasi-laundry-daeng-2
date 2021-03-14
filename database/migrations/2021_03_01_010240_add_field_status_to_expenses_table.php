@@ -27,7 +27,7 @@ class AddFieldStatusToExpensesTable extends Migration
     public function down()
     {
         Schema::table('expenses', function (Blueprint $table) {
-            $table->dropColumn('status', 1);
+            $table->dropColumn('status');
             $table->dropColumn('reason');
         });
     }

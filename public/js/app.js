@@ -5361,22 +5361,21 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_27__.default({
       component: _pages_customers_Customer_vue__WEBPACK_IMPORTED_MODULE_23__.default,
       meta: {
         title: "Manage Customers"
-      },
-      children: [{
-        path: "add",
-        name: "customers.add",
-        component: _pages_customers_Add_vue__WEBPACK_IMPORTED_MODULE_24__.default,
-        meta: {
-          title: "Add New Customers"
-        }
-      }, {
-        path: "edit/:id",
-        name: "customers.edit",
-        component: _pages_customers_Edit_vue__WEBPACK_IMPORTED_MODULE_25__.default,
-        meta: {
-          title: "Edit Customer"
-        }
-      }]
+      }
+    }, {
+      path: "add",
+      name: "customers.add",
+      component: _pages_customers_Add_vue__WEBPACK_IMPORTED_MODULE_24__.default,
+      meta: {
+        title: "Add New Customers"
+      }
+    }, {
+      path: "edit/:id",
+      name: "customers.edit",
+      component: _pages_customers_Edit_vue__WEBPACK_IMPORTED_MODULE_25__.default,
+      meta: {
+        title: "Edit Customer"
+      }
     }]
   }, {
     path: "/setting",
@@ -73780,7 +73779,7 @@ var render = function() {
             },
             scopedSlots: _vm._u([
               {
-                key: "deposit",
+                key: "cell(deposit)",
                 fn: function(row) {
                   return [
                     _vm._v(
@@ -73792,7 +73791,7 @@ var render = function() {
                 }
               },
               {
-                key: "courier_id",
+                key: "cell(courier_id)",
                 fn: function(row) {
                   return [
                     _vm._v(
@@ -73804,7 +73803,7 @@ var render = function() {
                 }
               },
               {
-                key: "actions",
+                key: "cell(actions)",
                 fn: function(row) {
                   return [
                     _c(

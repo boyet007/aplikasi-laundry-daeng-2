@@ -16,8 +16,10 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         $this->call(OutletTableSeeder::class);
         $this->call(UserTableSeeder::class);
+        $this->call(CustomerTableSeeder::class);
         $this->call(LaundryTypeTableSeeder::class);
         $this->call(LaundryPriceTableSeeder::class);
         $this->call(ExpenseTableSeeder::class);
+
     }
 }

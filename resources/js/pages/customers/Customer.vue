@@ -11,15 +11,15 @@
 
               	<!-- TABLE UNTUK MENAMPILKAN LIST CUSTOMER -->
                 <b-table striped hover bordered :items="customers.data" :fields="fields" show-empty>
-                    <template slot="deposit" slot-scope="row">
+                    <template #cell(deposit)="row">
                         Rp {{ row.item.deposit }}
                     </template>
 
                   	<!-- NAMA KURIR AKAN DITAMPILKAN JIKA ADA -->
-                    <template slot="courier_id" slot-scope="row">
+                    <template #cell(courier_id)="row">
                         {{ row.item.courier ? row.item.courier.name:'-' }}
                     </template>
-                    <template slot="actions" slot-scope="row">
+                    <template #cell(actions)="row">
                         <router-link :to="{ name: 'customers.edit', params: {id: row.item.id} }" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></router-link>
                         <button class="btn btn-danger btn-sm" @click="deleteCustomer(row.item.id)"><i class="fa fa-trash"></i></button>
                     </template>
