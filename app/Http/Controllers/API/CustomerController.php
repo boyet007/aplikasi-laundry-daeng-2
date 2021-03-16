@@ -40,8 +40,8 @@ class CustomerController extends Controller
             //MAKA ID KURIR DITAMBAHKAN
             $request->request->add(['courier_id' => $user->id]);
         }
-        Customer::create($request->all());
-        return response()->json(['status' => 'success']);
+        $customer = Customer::create($request->all()); //MODIFIKASI BAGIAN INI
+        return response()->json(['status' => 'success', 'data' => $customer]); //DAN PASSING DATANYA SEBAGAI RESPONSE
     }
 
     public function edit($id)

@@ -4435,16 +4435,92 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'FormCourier',
+  name: "FormCourier",
   created: function created() {
     var _this = this;
 
     this.getLaundryType(); //KETIKA COMPONENT DI-LOAD MAKA METHOD INI AKAN DIJALANKAN
     //APABILA MENGAKSESNYA DARI ROUTE EDIT
 
-    if (this.$route.name == 'products.edit') {
+    if (this.$route.name == "products.edit") {
       //MAKA FUNGSI UNTUK MENGAMBIL DATA PRODUCT BERDASARKAN ID AKAN DIJALANKAN
       this.editProduct(this.$route.params.id).then(function (res) {
         //KEMUDIAN VARIABLE YANG ADA DI ISI DENGAN DATA DARI SERVER
@@ -4452,7 +4528,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           name: res.data.name,
           unit_type: res.data.unit_type,
           price: res.data.price,
-          laundry_type: res.data.laundry_type_id
+          laundry_type: res.data.laundry_type_id,
+          service: res.data.service,
+          service_type: res.data.service_type
         };
       });
     }
@@ -4461,23 +4539,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       //DEFINISIKAM VARIABLE
       product: {
-        name: 'Kancut Wanita',
-        unit_type: 'Potong',
-        price: '10000',
-        laundry_type: '1'
+        name: "",
+        unit_type: "",
+        price: "",
+        laundry_type: "",
+        service: "",
+        service_type: ""
       },
-      laundry_type: '',
+      laundry_type: "",
       showForm: false //DEFAULT FORM UNTUK MENAMBAHKAN JENIS LAUNDRY ADALAH FALSE, YANG BERARTI FORM TIDAK DITAMPILKAN
 
     };
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapState)(['errors'])), (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapState)('product', {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapState)(["errors"])), (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapState)("product", {
     laundry_types: function laundry_types(state) {
       return state.laundry_types;
     } //MENGAMBIL STATE LAUNDRY_TYPES
 
   })),
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)('product', ['getLaundryType', 'addLaundryType', 'addProductLaundry', 'editProduct', 'updateCourier'])), {}, {
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)("product", ["getLaundryType", "addLaundryType", "addProductLaundry", "editProduct", "updateCourier"])), {}, {
     //ME-LOAD SEMUA FUNGSI YANG ADA DI MODULE PRODUCT
     //FUNGSI YANG AKAN BERJALAN KETIKA TOMBOL SAVE DARI ADD JENIS LAUNDRY DITEKAN
     addNewLaundryType: function addNewLaundryType() {
@@ -4491,7 +4571,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this2.getLaundryType().then(function () {
           //FORM DI SET FALSE KEMBALI
           _this2.showForm = false;
-          _this2.laundry_type = ''; //DAN LAUNDRY_TYPE DI KOSONGKAN
+          _this2.laundry_type = ""; //DAN LAUNDRY_TYPE DI KOSONGKAN
         });
       });
     },
@@ -4500,22 +4580,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this3 = this;
 
       //APABILA DIAKSESNYA DARI ROUTE DENGAN NAME PRODUCTS.ADD
-      if (this.$route.name == 'products.add') {
+      if (this.$route.name == "products.add") {
         //MAKA FUNGSI INI AKAN DIJALANKAN UNTUK MENAMBAHKAN PRODUCT BARU
         this.addProductLaundry(this.product).then(function () {
           //KOSONGKAN VARIABLE KETIKA BERHASIL MENYIMPAN DATA KE SERVER
-          _this3.product = {
-            name: '',
-            unit_type: '',
-            price: '',
-            laundry_type: ''
-          }; //REDIRECT KEMBALI KE HALAMAN LIST PRODUCT
+          _this3.clearForm(); //REDIRECT KEMBALI KE HALAMAN LIST PRODUCT
+
 
           _this3.$router.push({
-            name: 'products.data'
+            name: "products.data"
           });
         }); //KETIKA DIAKSES MELALUI ROUTE DENGAN NAME PRODUCTS.EDIT
-      } else if (this.$route.name == 'products.edit') {
+      } else if (this.$route.name == "products.edit") {
         //MAKA ID AKAN DI TAMBAHKAN KE DALAM OBJECT VARIABLE PRODUCT
         Object.assign(this.product, {
           id: this.$route.params.id
@@ -4523,18 +4599,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         this.updateCourier(this.product).then(function () {
           //KOSONGKAN VARIABLE
-          _this3.product = {
-            name: '',
-            unit_type: '',
-            price: '',
-            laundry_type: ''
-          }; //REDIRECT KEMBALI
+          _this3.clearForm(); //REDIRECT KEMBALI
+
 
           _this3.$router.push({
-            name: 'products.data'
+            name: "products.data"
           });
         });
       }
+    },
+    clearForm: function clearForm() {
+      this.product = {
+        name: "",
+        unit_type: "",
+        price: "",
+        laundry_type: "",
+        service: "",
+        service_type: ""
+      };
     }
   })
 });
@@ -4641,9 +4723,44 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'DataCourier',
+  name: "DataCourier",
   created: function created() {
     this.getProducts(); //MELAKUKAN REQUEST KETIKA COMPONENT DI-LOAD
   },
@@ -4651,29 +4768,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       //FIELDS UNTUK MENGISI HEADER TABLE YANG AKAN DITAMPILKAN
       fields: [{
-        key: 'name',
-        label: 'Nama Item'
+        key: "name",
+        label: "Nama Item"
       }, {
-        key: 'unit_type',
-        label: 'Tipe'
+        key: "unit_type",
+        label: "Tipe"
       }, {
-        key: 'laundry_type',
-        label: 'Jenis Jasa'
+        key: "laundry_type",
+        label: "Jenis Jasa"
       }, {
-        key: 'price',
-        label: 'Harga'
+        key: "price",
+        label: "Harga"
       }, {
-        key: 'user_id',
-        label: 'Admin'
+        key: "user_id",
+        label: "Admin"
       }, {
-        key: 'actions',
-        label: 'Aksi'
+        key: 'service',
+        label: 'Lama Pengerjaan'
+      }, {
+        key: "actions",
+        label: "Aksi"
       }],
       //VARIABLE UNTUK FORM SEARCH
-      search: ''
+      search: ""
     };
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapState)('product', {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapState)("product", {
     products: function products(state) {
       return state.products;
     } //STATE PRODUCTS
@@ -4684,7 +4804,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return this.$store.state.product.page; //LOAD STATE PAGE
       },
       set: function set(val) {
-        this.$store.commit('product/SET_PAGE', val); //SET STATE PAGE KETIKA VALUE BERUBAH
+        this.$store.commit("product/SET_PAGE", val); //SET STATE PAGE KETIKA VALUE BERUBAH
       }
     }
   }),
@@ -4698,20 +4818,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.getProducts(this.search); //AMBIL DATA TERBARU BERDASARKAN VALUE SEARC
     }
   },
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)('product', ['getProducts', 'removeProduct'])), {}, {
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)("product", ["getProducts", "removeProduct"])), {}, {
     //LOAD ACTIONS DARI MODULE PRODUCT
     //FUNGSI UNTUK MENG-HANDLE TOMBOL HAPUS PRODUCT
     deleteProduct: function deleteProduct(id) {
       var _this = this;
 
       this.$swal({
-        title: 'Kamu Yakin?',
+        title: "Kamu Yakin?",
         text: "Tindakan ini akan menghapus secara permanent!",
-        icon: 'warning',
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Iya, Lanjutkan!'
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Iya, Lanjutkan!"
       }).then(function (result) {
         if (result.value) {
           _this.removeProduct(id); //KETIKA YES MAKA FUNGSI INI AKAN DIJALANKAN
@@ -5049,12 +5169,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-select */ "./node_modules/vue-select/dist/vue-select.js");
 /* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_select__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_select_dist_vue_select_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-select/dist/vue-select.css */ "./node_modules/vue-select/dist/vue-select.css");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _customers_Form_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../customers/Form.vue */ "./resources/js/pages/customers/Form.vue");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -5173,12 +5294,63 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'FormTransaction',
+  name: "FormTransaction",
   data: function data() {
     return {
       isForm: false,
@@ -5195,7 +5367,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     };
   },
-  computed: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapState)(['errors'])), (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapState)('transaction', {
+  computed: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapState)(["errors"])), (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapState)("transaction", {
     customers: function customers(state) {
       return state.customers;
     },
@@ -5207,12 +5379,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   })), {}, {
     total: function total() {
       //MENJUMLAH SUBTOTAL
-      return lodash__WEBPACK_IMPORTED_MODULE_2___default().sumBy(this.transactions.detail, function (o) {
+      return lodash__WEBPACK_IMPORTED_MODULE_3___default().sumBy(this.transactions.detail, function (o) {
         return o.subtotal;
       });
     }
   }),
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapActions)('transaction', ['getCustomers', 'getProducts', 'createTransaction'])), {}, {
+  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapActions)("transaction", ["getCustomers", "getProducts", "createTransaction"])), (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapActions)("customer", ["submitCustomer"])), {}, {
     //METHOD INI AKAN BERJALAN KETIKA PENCARIAN DATA CUSTOMER PADA V-SELECT DIATAS
     onSearch: function onSearch(search, loading) {
       //KITA AKAN ME-REQUEST DATA CUSTOMER BERDASARKAN KEYWORD YG DIMINTA
@@ -5252,7 +5424,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         //DIMANA KITA AKAN MENGISI PRICE UNTUK SETIAP ITEMNYA DAN PRICENYA DIDAPATKAN DARI DATA PRODUCT LAUNDRY
         data.price = data.laundry_price.price; //ADAPUN SUBTOTAL AKAN DIHITUNG BERDASARKAN JENISNYA
 
-        if (data.laundry_price.unit_type == 'Kilogram') {
+        if (data.laundry_price.unit_type == "Kilogram") {
           //JIKA KILOGRAM MAKA BERAT BARANG * HARGA /1000
           data.subtotal = (parseInt(data.laundry_price.price) * (parseInt(data.qty) / parseInt(1000))).toFixed(2);
         } else {
@@ -5261,19 +5433,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }
     },
-    //KETIKA TOMBOL CREATE TRANSACTION DITEKAN MAKA FUNGSI INI AKAN DIJALANKAN
-    submit: function submit() {
+    addCustomer: function addCustomer() {
       var _this = this;
 
-      this.isSuccess = false; //MENGIRIM PERMINTAAN KE SERVER UNTUK MENYIMPAN DATA TRANSAKSI
+      //JALANKAN FUNGSI submitCustomer YANG MERUPAKAN ACTIONS DARI MODULE CUSTOMER
+      this.submitCustomer().then(function (res) {
+        //APABILA BERHASIL, MAKA SET DATA CUSTOMER_ID AGAR AUTO SELECT PADA BAGIAN SELECT CUSTOMER
+        _this.transactions.customer_id = res.data;
+        _this.isForm = false; //SET KEMBALI JADI FALSE AGAR FORM TERTUTUP
+      });
+    },
+    newCustomer: function newCustomer() {
+      this.isForm = true; //MENGUBAH VALUE isForm MENJADI TRUE
+    },
+    submit: function submit() {
+      var _this2 = this;
 
+      this.isSuccess = false;
       this.createTransaction(this.transactions).then(function () {
-        return _this.isSuccess = true;
+        return _this2.isSuccess = true;
       });
     }
   }),
   components: {
-    vSelect: (vue_select__WEBPACK_IMPORTED_MODULE_0___default())
+    vSelect: (vue_select__WEBPACK_IMPORTED_MODULE_0___default()),
+    "form-customer": _customers_Form_vue__WEBPACK_IMPORTED_MODULE_2__.default
   }
 });
 
@@ -93629,7 +93813,11 @@ var render = function() {
         _vm._v(" "),
         _vm.errors.unit_type
           ? _c("p", { staticClass: "text-danger" }, [
-              _vm._v(_vm._s(_vm.errors.unit_type[0]))
+              _vm._v(
+                "\n            " +
+                  _vm._s(_vm.errors.unit_type[0]) +
+                  "\n        "
+              )
             ])
           : _vm._e()
       ]
@@ -93645,7 +93833,7 @@ var render = function() {
           },
           [
             _c("label", { attrs: { for: "" } }, [
-              _vm._v("Jenis Jasa "),
+              _vm._v("Jenis Jasa\n                    "),
               _c("sup", [
                 !_vm.showForm
                   ? _c(
@@ -93710,7 +93898,11 @@ var render = function() {
             _vm._v(" "),
             _vm.errors.laundry_type
               ? _c("p", { staticClass: "text-danger" }, [
-                  _vm._v(_vm._s(_vm.errors.laundry_type[0]))
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(_vm.errors.laundry_type[0]) +
+                      "\n                "
+                  )
                 ])
               : _vm._e()
           ]
@@ -93767,7 +93959,11 @@ var render = function() {
                 _vm._v(" "),
                 _vm.errors.name_laundry_type
                   ? _c("p", { staticClass: "text-danger" }, [
-                      _vm._v(_vm._s(_vm.errors.name_laundry_type[0]))
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(_vm.errors.name_laundry_type[0]) +
+                          "\n                "
+                      )
                     ])
                   : _vm._e()
               ]
@@ -93810,7 +94006,116 @@ var render = function() {
             ])
           : _vm._e()
       ]
-    )
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-6" }, [
+        _c(
+          "div",
+          {
+            staticClass: "form-group",
+            class: { "has-error": _vm.errors.service }
+          },
+          [
+            _c("label", { attrs: { for: "" } }, [_vm._v("Lama Pengerjaan")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.product.service,
+                  expression: "product.service"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "number" },
+              domProps: { value: _vm.product.service },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.product, "service", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _vm.errors.service
+              ? _c("p", { staticClass: "text-danger" }, [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(_vm.errors.service[0]) +
+                      "\n                "
+                  )
+                ])
+              : _vm._e()
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-6" }, [
+        _c(
+          "div",
+          {
+            staticClass: "form-group",
+            class: { "has-error": _vm.errors.service_type }
+          },
+          [
+            _c("label", { attrs: { for: "" } }, [_vm._v("Satuan")]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.product.service_type,
+                    expression: "product.service_type"
+                  }
+                ],
+                staticClass: "form-control",
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.product,
+                      "service_type",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  }
+                }
+              },
+              [
+                _c("option", { attrs: { value: "" } }, [_vm._v("Pilih")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "Hari" } }, [_vm._v("Hari")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "Jam" } }, [_vm._v("Jam")])
+              ]
+            ),
+            _vm._v(" "),
+            _vm.errors.service_type
+              ? _c("p", { staticClass: "text-danger" }, [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(_vm.errors.service_type[0]) +
+                      "\n                "
+                  )
+                ])
+              : _vm._e()
+          ]
+        )
+      ])
+    ])
   ])
 }
 var staticRenderFns = []
@@ -93957,6 +94262,20 @@ var render = function() {
                 }
               },
               {
+                key: "cell(service)",
+                fn: function(row) {
+                  return [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(row.item.service) +
+                        " " +
+                        _vm._s(row.item.service_type) +
+                        "\n                "
+                    )
+                  ]
+                }
+              },
+              {
                 key: "cell(actions)",
                 fn: function(row) {
                   return [
@@ -93998,11 +94317,11 @@ var render = function() {
                 ? _c("p", [
                     _c("i", { staticClass: "fa fa-bars" }),
                     _vm._v(
-                      " " +
+                      "\n                        " +
                         _vm._s(_vm.products.data.length) +
-                        " item dari " +
+                        " item dari\n                        " +
                         _vm._s(_vm.products.meta.total) +
-                        " total data"
+                        " total data\n                    "
                     )
                   ])
                 : _vm._e()
@@ -94505,7 +94824,19 @@ var render = function() {
           class: { "has-error": _vm.errors.customer_id }
         },
         [
-          _c("label", { attrs: { for: "" } }, [_vm._v("Customer")]),
+          _c("label", { attrs: { for: "" } }, [
+            _vm._v("Customer\n                "),
+            _c("sup", [
+              _c(
+                "a",
+                {
+                  attrs: { href: "javascript:void(0)" },
+                  on: { click: _vm.newCustomer }
+                },
+                [_vm._v("New Customer")]
+              )
+            ])
+          ]),
           _vm._v(" "),
           _c(
             "v-select",
@@ -94551,7 +94882,11 @@ var render = function() {
           _vm._v(" "),
           _vm.errors.customer_id
             ? _c("p", { staticClass: "text-danger" }, [
-                _vm._v(_vm._s(_vm.errors.customer_id[0]))
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.errors.customer_id[0]) +
+                    "\n            "
+                )
               ])
             : _vm._e()
         ],
@@ -94563,7 +94898,7 @@ var render = function() {
       ? _c("div", { staticClass: "col-md-6" }, [
           _c("table", [
             _c("tr", [
-              _c("th", { attrs: { width: "30%" } }, [_vm._v("NIK ")]),
+              _c("th", { attrs: { width: "30%" } }, [_vm._v("NIK")]),
               _vm._v(" "),
               _c("td", { attrs: { width: "5%" } }, [_vm._v(":")]),
               _vm._v(" "),
@@ -94571,7 +94906,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("tr", [
-              _c("th", [_vm._v("No Telp ")]),
+              _c("th", [_vm._v("No Telp")]),
               _vm._v(" "),
               _c("td", [_vm._v(":")]),
               _vm._v(" "),
@@ -94579,7 +94914,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("tr", [
-              _c("th", [_vm._v("Alamat ")]),
+              _c("th", [_vm._v("Alamat")]),
               _vm._v(" "),
               _c("td", [_vm._v(":")]),
               _vm._v(" "),
@@ -94587,7 +94922,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("tr", [
-              _c("th", [_vm._v("Deposit ")]),
+              _c("th", [_vm._v("Deposit")]),
               _vm._v(" "),
               _c("td", [_vm._v(":")]),
               _vm._v(" "),
@@ -94597,7 +94932,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("tr", [
-              _c("th", [_vm._v("Point ")]),
+              _c("th", [_vm._v("Point")]),
               _vm._v(" "),
               _c("td", [_vm._v(":")]),
               _vm._v(" "),
@@ -94605,6 +94940,28 @@ var render = function() {
             ])
           ])
         ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.isForm
+      ? _c(
+          "div",
+          { staticClass: "col-md-6" },
+          [
+            _c("h4", [_vm._v("Add New Customer")]),
+            _vm._v(" "),
+            _c("form-customer"),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary btn-s",
+                on: { click: _vm.addCustomer }
+              },
+              [_vm._v("\n            Save\n        ")]
+            )
+          ],
+          1
+        )
       : _vm._e(),
     _vm._v(" "),
     _c("div", { staticClass: "col-md-12" }, [
@@ -94617,7 +94974,7 @@ var render = function() {
           staticStyle: { "margin-bottom": "10px" },
           on: { click: _vm.addProduct }
         },
-        [_vm._v("Tambah")]
+        [_vm._v("\n            Tambah\n        ")]
       ),
       _vm._v(" "),
       _c("div", { staticClass: "table-responsive" }, [
@@ -94735,7 +95092,11 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("Hapus")]
+                    [
+                      _vm._v(
+                        "\n                                Hapus\n                            "
+                      )
+                    ]
                   )
                 ])
               ])
