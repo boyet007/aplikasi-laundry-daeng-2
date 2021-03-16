@@ -151,7 +151,6 @@
             },
             //KETIKA LIST PERMISSION DI CENTANG, MAKA FUNGSI INI BERJALAN
             addPermission(name) {
-                debugger;
                 //DICEK KE NEW_PERMISSION BERDASARKAN NAME
                 let index = this.new_permission.findIndex(x => x == name)
                 //APABIL TIDAK TERSEDIA, INDEXNYA -1

@@ -9,6 +9,7 @@ use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\RolePermissionController;
 use App\Http\Controllers\API\ExpensesController;
 use App\Http\Controllers\API\CustomerController;
+use App\Http\Controllers\API\TransactionController;
 
 use App\Http\Controllers\API\NotificationController;
 
@@ -38,6 +39,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('expenses/cancel', [ExpensesController::class, 'cancelRequest'])->name('expenses.cancel');
 
     Route::resource('customer', CustomerController::class)->except(['create', 'show']);
+    Route::resource('transaction', TransactionController::class)->except(['create', 'show']);
 });
 
 

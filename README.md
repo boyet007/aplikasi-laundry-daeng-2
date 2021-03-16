@@ -49,6 +49,9 @@ php artisan permission:create-permission "read products"
 php artisan permission:create-permission "create products"
 php artisan permission:create-permission "edit products"
 php artisan permission:create-permission "delete products"
+php artisan permission:create-permission "create customers"
+php artisan permission:create-permission "edit customers"
+php artisan permission:create-permission "delete customers"
 php artisan make:migration add_field_status_to_expenses_table
 php artisan make:notification ExpensesNotification
 php artisan notifications:table

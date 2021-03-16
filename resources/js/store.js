@@ -9,6 +9,7 @@ import product from './stores/product.js'
 import user from './stores/user.js'
 import expenses from './stores/expenses.js'
 import notification from './stores/notification.js'
+import transaction from './stores/transaction.js'
 import customer from './stores/customer.js'
 Vue.use(Vuex)
 
@@ -24,6 +25,7 @@ const store = new Vuex.Store({
         expenses,
         notification,
         customer,
+        transaction,
     },
     //STATE HAMPIR SERUPA DENGAN PROPERTY DATA DARI COMPONENT HANYA SAJA DAPAT DIGUNAKAN SECARA GLOBAL
     state: {

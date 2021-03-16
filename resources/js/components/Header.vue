@@ -44,12 +44,21 @@
                                 >Products</router-link
                             >
                         </li>
+                        <li v-if="$can('read customers')">
+                            <router-link :to="{ name: 'customers.data' }"
+                                >Customer</router-link
+                            >
+                        </li>
                         <li>
                             <router-link :to="{ name: 'expenses.data' }"
                                 >Expenses</router-link
                             >
                         </li>
-                        <li><router-link :to="{ name: 'customers.data' }">Customer</router-link></li>
+                        <li>
+                            <router-link :to="{ name: 'transactions.add' }"
+                                >Transaction</router-link
+                            >
+                        </li>
 
                         <li class="dropdown" v-if="authenticated.role == 0">
                             <a
@@ -90,18 +99,31 @@
                             >
                                 <i class="fa fa-bell-o"></i>
                                 <!-- FUNGSI INI UNTUK MENGHITUNG JUMLAH DATA NOTIFIKASI YANG ADA -->
-                                <span class="label label-success">{{ notifications.length }}</span>
+                                <span class="label label-success">{{
+                                    notifications.length
+                                }}</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="header">
                                     You have {{ notifications.length }} messages
                                 </li>
                                 <li>
-                                    <ul class="menu" v-if="notifications.length > 0">
-                                        <li v-for="(row, index) in notifications" :key="index">
-                                            <a href="javascript:void(0)" @click="readNotif(row)">
+                                    <ul
+                                        class="menu"
+                                        v-if="notifications.length > 0"
+                                    >
+                                        <li
+                                            v-for="(row,
+                                            index) in notifications"
+                                            :key="index"
+                                        >
+                                            <a
+                                                href="javascript:void(0)"
+                                                @click="readNotif(row)"
+                                            >
                                                 <div class="pull-left">
-                                                    <img src="https://via.placeholder.com/160"
+                                                    <img
+                                                        src="https://via.placeholder.com/160"
                                                         class="img-circle"
                                                         alt="User Image"
                                                     />
@@ -207,8 +229,8 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
-import moment from 'moment'
+import { mapState, mapActions } from "vuex";
+import moment from "moment";
 export default {
     computed: {
         ...mapState("user", {
