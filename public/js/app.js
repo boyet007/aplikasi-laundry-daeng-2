@@ -5141,18 +5141,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'AddTransaction',
+  name: "AddTransaction",
   methods: {
     //KETIKA TOMBOL CREATE TRANSACTION DITEKAN MAKA AKAN MENJALAN METHOD INI
     submit: function submit() {
       this.$refs.form.submit(); //DIMANA KITA MENGINSTRUKSIKAN UNTUK MENJALANKAN METHOD submit() PADA FILE FORM.VUE MELALUI REFS
+    },
+    clearForm: function clearForm() {
+      this.$refs.form.resetForm();
     }
   },
   components: {
-    'transaction-form': _Form_vue__WEBPACK_IMPORTED_MODULE_0__.default
+    "transaction-form": _Form_vue__WEBPACK_IMPORTED_MODULE_0__.default
   }
 });
 
@@ -5176,13 +5187,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _customers_Form_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../customers/Form.vue */ "./resources/js/pages/customers/Form.vue");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
+var _objectSpread2;
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
 //
 //
 //
@@ -5380,11 +5392,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     total: function total() {
       //MENJUMLAH SUBTOTAL
       return lodash__WEBPACK_IMPORTED_MODULE_3___default().sumBy(this.transactions.detail, function (o) {
-        return o.subtotal;
+        return parseFloat(o.subtotal); //TAMBAHKAN parseFloat() UNTUK MEMASTIKAN VALUE YANG DI SUM BUKAN STRING.
+      });
+    },
+    filterProduct: function filterProduct() {
+      return lodash__WEBPACK_IMPORTED_MODULE_3___default().filter(this.transactions.detail, function (item) {
+        return item.laundry_price == null;
       });
     }
   }),
-  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapActions)("transaction", ["getCustomers", "getProducts", "createTransaction"])), (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapActions)("customer", ["submitCustomer"])), {}, {
+  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapActions)("transaction", ["getCustomers", "getProducts", "createTransaction"])), (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapActions)("customer", ["submitCustomer"])), {}, (_objectSpread2 = {
     //METHOD INI AKAN BERJALAN KETIKA PENCARIAN DATA CUSTOMER PADA V-SELECT DIATAS
     onSearch: function onSearch(search, loading) {
       //KITA AKAN ME-REQUEST DATA CUSTOMER BERDASARKAN KEYWORD YG DIMINTA
@@ -5426,7 +5443,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         if (data.laundry_price.unit_type == "Kilogram") {
           //JIKA KILOGRAM MAKA BERAT BARANG * HARGA /1000
-          data.subtotal = (parseInt(data.laundry_price.price) * (parseInt(data.qty) / parseInt(1000))).toFixed(2);
+          data.subtotal = (parseInt(data.laundry_price.price) * parseInt(data.qty)).toFixed(2);
         } else {
           //JIKA SATUAN, MAKA HARGA * QTY
           data.subtotal = parseInt(data.laundry_price.price) * parseInt(data.qty);
@@ -5449,12 +5466,40 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     submit: function submit() {
       var _this2 = this;
 
-      this.isSuccess = false;
-      this.createTransaction(this.transactions).then(function () {
-        return _this2.isSuccess = true;
+      this.isSuccess = false; //FILTER DATANYA DENGAN KONDISI LAUNDRY_PRICE != NULL
+
+      var filter = lodash__WEBPACK_IMPORTED_MODULE_3___default().filter(this.transactions.detail, function (item) {
+        return item.laundry_price != null;
+      }); //KEMUDIAN DIHITUNG, JIKA JUMLAH DATA YANG SUDAH DIFILTER LEBIH DARI 0
+
+
+      if (filter.length > 0) {
+        //MAKA INSTRUKSI UNTUK MEMBUAT TRANSAKSI DIJALANKAN
+        this.createTransaction(this.transactions).then(function () {
+          return _this2.isSuccess = true;
+        });
+      }
+    }
+  }, _defineProperty(_objectSpread2, "addProduct", function addProduct() {
+    if (this.filterProduct.length == 0) {
+      this.transactions.detail.push({
+        laundry_price: null,
+        qty: null,
+        price: 0,
+        subtotal: 0
       });
     }
-  }),
+  }), _defineProperty(_objectSpread2, "resetForm", function resetForm() {
+    this.transactions = {
+      customer_id: null,
+      detail: [{
+        laundry_price: null,
+        qty: 1,
+        price: 0,
+        subtotal: 0
+      }]
+    };
+  }), _objectSpread2)),
   components: {
     vSelect: (vue_select__WEBPACK_IMPORTED_MODULE_0___default()),
     "form-customer": _customers_Form_vue__WEBPACK_IMPORTED_MODULE_2__.default
@@ -5602,9 +5647,9 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_9__.default({
         //MAKA INISIASI FUNGSI BROADCASTER DENGAN KONFIGURASI BERIKUT
         window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_7__.default({
           broadcaster: 'pusher',
-          key: "3306001f38113b0e8886",
+          key: "",
           //VALUENYA DI AMBIL DARI FILE .ENV
-          cluster: "ap1",
+          cluster: "mt1",
           encrypted: false,
           auth: {
             headers: {
@@ -94773,6 +94818,20 @@ var render = function() {
                 _c("i", { staticClass: "fa fa-save" }),
                 _vm._v(" Create Transaction\n                ")
               ]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-danger btn-sm btn-flat",
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.clearForm($event)
+                  }
+                }
+              },
+              [_vm._v("\n                    Clear Form\n                ")]
             )
           ])
         ],
@@ -94872,9 +94931,7 @@ var render = function() {
             },
             [
               _c("template", { slot: "no-options" }, [
-                _vm._v(
-                  "\n                    Masukkan Kata Kunci\n                "
-                )
+                _vm._v(" Masukkan Kata Kunci ")
               ])
             ],
             2
@@ -94967,15 +95024,17 @@ var render = function() {
     _c("div", { staticClass: "col-md-12" }, [
       _c("hr"),
       _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-warning btn-sm",
-          staticStyle: { "margin-bottom": "10px" },
-          on: { click: _vm.addProduct }
-        },
-        [_vm._v("\n            Tambah\n        ")]
-      ),
+      _vm.filterProduct.length == 0
+        ? _c(
+            "button",
+            {
+              staticClass: "btn btn-warning btn-sm",
+              staticStyle: { "margin-bottom": "10px" },
+              on: { click: _vm.addProduct }
+            },
+            [_vm._v("\n            Tambah\n        ")]
+          )
+        : _vm._e(),
       _vm._v(" "),
       _c("div", { staticClass: "table-responsive" }, [
         _c("table", { staticClass: "table table-bordered table-hover" }, [
@@ -95069,7 +95128,7 @@ var render = function() {
                         _vm._s(
                           row.laundry_price != null &&
                             row.laundry_price.unit_type == "Kilogram"
-                            ? "gram"
+                            ? "kilogram"
                             : "pcs"
                         )
                       )

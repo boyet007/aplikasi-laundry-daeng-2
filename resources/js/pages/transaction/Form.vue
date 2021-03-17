@@ -129,7 +129,7 @@
                                         row.laundry_price != null &&
                                         row.laundry_price.unit_type ==
                                             "Kilogram"
-                                            ? "gram"
+                                            ? "kilogram"
                                             : "pcs"
                                     }}</span>
                                 </div>
@@ -175,35 +175,33 @@ export default {
             transactions: {
                 customer_id: null,
                 //KITA SET DEFAULT DETAILNYA 1 ITEM YANG KOSONG
-                detail: [
-                    { laundry_price: null, qty: 1, price: 0, subtotal: 0 },
-                ],
-            },
+                detail: [{ laundry_price: null, qty: 1, price: 0, subtotal: 0 }]
+            }
         };
     },
     computed: {
         ...mapState(["errors"]),
         ...mapState("transaction", {
-            customers: (state) => state.customers, //GET STATE CUSTOMER DARI MODULE TRANSACTION
-            products: (state) => state.products, //GET STATE PRODUCT DARI MODULE TRANSACTION
+            customers: state => state.customers, //GET STATE CUSTOMER DARI MODULE TRANSACTION
+            products: state => state.products //GET STATE PRODUCT DARI MODULE TRANSACTION
         }),
         total() {
             //MENJUMLAH SUBTOTAL
-            return _.sumBy(this.transactions.detail, function (o) {
+            return _.sumBy(this.transactions.detail, function(o) {
                 return parseFloat(o.subtotal); //TAMBAHKAN parseFloat() UNTUK MEMASTIKAN VALUE YANG DI SUM BUKAN STRING.
             });
         },
         filterProduct() {
-            return _.filter(this.transactions.detail, function (item) {
+            return _.filter(this.transactions.detail, function(item) {
                 return item.laundry_price == null;
             });
-        },
+        }
     },
     methods: {
         ...mapActions("transaction", [
             "getCustomers",
             "getProducts",
-            "createTransaction",
+            "createTransaction"
         ]),
         ...mapActions("customer", ["submitCustomer"]),
         //METHOD INI AKAN BERJALAN KETIKA PENCARIAN DATA CUSTOMER PADA V-SELECT DIATAS
@@ -211,7 +209,7 @@ export default {
             //KITA AKAN ME-REQUEST DATA CUSTOMER BERDASARKAN KEYWORD YG DIMINTA
             this.getCustomers({
                 search: search,
-                loading: loading,
+                loading: loading
             });
         },
         //METHOD INI UNTUK PENCARIAN DATA PRODUK UNTUK ITEM LAUNDRY
@@ -219,7 +217,7 @@ export default {
             //ME-REQUEST DATA PRODUCT
             this.getProducts({
                 search: search,
-                loading: loading,
+                loading: loading
             });
         },
         //KETIKA TOMBOL TAMBAHKAN DITEKAN, MAKA AKAN MENAMBAHKAN ITEM BARU
@@ -228,7 +226,7 @@ export default {
                 laundry_price: null,
                 qty: null,
                 price: 0,
-                subtotal: 0,
+                subtotal: 0
             });
         },
         //KETIKA TOMBOL HAPUS PADA MASING-MASING ITEM DITEKAN, MAKA AKAN MENGHAPUS BERDASARKAN INDEX DATANYA
@@ -247,8 +245,7 @@ export default {
                 if (data.laundry_price.unit_type == "Kilogram") {
                     //JIKA KILOGRAM MAKA BERAT BARANG * HARGA /1000
                     data.subtotal = (
-                        parseInt(data.laundry_price.price) *
-                        (parseInt(data.qty) / parseInt(1000))
+                        parseInt(data.laundry_price.price) * parseInt(data.qty)
                     ).toFixed(2);
                 } else {
                     //JIKA SATUAN, MAKA HARGA * QTY
@@ -259,7 +256,7 @@ export default {
         },
         addCustomer() {
             //JALANKAN FUNGSI submitCustomer YANG MERUPAKAN ACTIONS DARI MODULE CUSTOMER
-            this.submitCustomer().then((res) => {
+            this.submitCustomer().then(res => {
                 //APABILA BERHASIL, MAKA SET DATA CUSTOMER_ID AGAR AUTO SELECT PADA BAGIAN SELECT CUSTOMER
                 this.transactions.customer_id = res.data;
                 this.isForm = false; //SET KEMBALI JADI FALSE AGAR FORM TERTUTUP
@@ -271,7 +268,7 @@ export default {
         submit() {
             this.isSuccess = false;
             //FILTER DATANYA DENGAN KONDISI LAUNDRY_PRICE != NULL
-            let filter = _.filter(this.transactions.detail, function (item) {
+            let filter = _.filter(this.transactions.detail, function(item) {
                 return item.laundry_price != null;
             });
             //KEMUDIAN DIHITUNG, JIKA JUMLAH DATA YANG SUDAH DIFILTER LEBIH DARI 0
@@ -288,22 +285,20 @@ export default {
                     laundry_price: null,
                     qty: null,
                     price: 0,
-                    subtotal: 0,
+                    subtotal: 0
                 });
             }
         },
         resetForm() {
             this.transactions = {
                 customer_id: null,
-                detail: [
-                    { laundry_price: null, qty: 1, price: 0, subtotal: 0 },
-                ],
+                detail: [{ laundry_price: null, qty: 1, price: 0, subtotal: 0 }]
             };
-        },
+        }
     },
     components: {
         vSelect,
-        "form-customer": FormCustomer,
-    },
+        "form-customer": FormCustomer
+    }
 };
 </script>
