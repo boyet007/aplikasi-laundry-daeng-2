@@ -23,9 +23,7 @@
                     placeholder="Masukkan Kata Kunci"
                     :filterable="false"
                 >
-                    <template slot="no-options">
-                        Masukkan Kata Kunci
-                    </template>
+                    <template slot="no-options"> Masukkan Kata Kunci </template>
                     <template slot="option" slot-scope="option">
                         {{ option.name }}
                     </template>
@@ -80,6 +78,7 @@
             <button
                 class="btn btn-warning btn-sm"
                 style="margin-bottom: 10px"
+                v-if="filterProduct.length == 0"
                 @click="addProduct"
             >
                 Tambah
@@ -176,28 +175,35 @@ export default {
             transactions: {
                 customer_id: null,
                 //KITA SET DEFAULT DETAILNYA 1 ITEM YANG KOSONG
-                detail: [{ laundry_price: null, qty: 1, price: 0, subtotal: 0 }]
-            }
+                detail: [
+                    { laundry_price: null, qty: 1, price: 0, subtotal: 0 },
+                ],
+            },
         };
     },
     computed: {
         ...mapState(["errors"]),
         ...mapState("transaction", {
-            customers: state => state.customers, //GET STATE CUSTOMER DARI MODULE TRANSACTION
-            products: state => state.products //GET STATE PRODUCT DARI MODULE TRANSACTION
+            customers: (state) => state.customers, //GET STATE CUSTOMER DARI MODULE TRANSACTION
+            products: (state) => state.products, //GET STATE PRODUCT DARI MODULE TRANSACTION
         }),
         total() {
             //MENJUMLAH SUBTOTAL
-            return _.sumBy(this.transactions.detail, function(o) {
-                return o.subtotal;
+            return _.sumBy(this.transactions.detail, function (o) {
+                return parseFloat(o.subtotal); //TAMBAHKAN parseFloat() UNTUK MEMASTIKAN VALUE YANG DI SUM BUKAN STRING.
             });
-        }
+        },
+        filterProduct() {
+            return _.filter(this.transactions.detail, function (item) {
+                return item.laundry_price == null;
+            });
+        },
     },
     methods: {
         ...mapActions("transaction", [
             "getCustomers",
             "getProducts",
-            "createTransaction"
+            "createTransaction",
         ]),
         ...mapActions("customer", ["submitCustomer"]),
         //METHOD INI AKAN BERJALAN KETIKA PENCARIAN DATA CUSTOMER PADA V-SELECT DIATAS
@@ -205,7 +211,7 @@ export default {
             //KITA AKAN ME-REQUEST DATA CUSTOMER BERDASARKAN KEYWORD YG DIMINTA
             this.getCustomers({
                 search: search,
-                loading: loading
+                loading: loading,
             });
         },
         //METHOD INI UNTUK PENCARIAN DATA PRODUK UNTUK ITEM LAUNDRY
@@ -213,7 +219,7 @@ export default {
             //ME-REQUEST DATA PRODUCT
             this.getProducts({
                 search: search,
-                loading: loading
+                loading: loading,
             });
         },
         //KETIKA TOMBOL TAMBAHKAN DITEKAN, MAKA AKAN MENAMBAHKAN ITEM BARU
@@ -222,7 +228,7 @@ export default {
                 laundry_price: null,
                 qty: null,
                 price: 0,
-                subtotal: 0
+                subtotal: 0,
             });
         },
         //KETIKA TOMBOL HAPUS PADA MASING-MASING ITEM DITEKAN, MAKA AKAN MENGHAPUS BERDASARKAN INDEX DATANYA
@@ -253,7 +259,7 @@ export default {
         },
         addCustomer() {
             //JALANKAN FUNGSI submitCustomer YANG MERUPAKAN ACTIONS DARI MODULE CUSTOMER
-            this.submitCustomer().then(res => {
+            this.submitCustomer().then((res) => {
                 //APABILA BERHASIL, MAKA SET DATA CUSTOMER_ID AGAR AUTO SELECT PADA BAGIAN SELECT CUSTOMER
                 this.transactions.customer_id = res.data;
                 this.isForm = false; //SET KEMBALI JADI FALSE AGAR FORM TERTUTUP
@@ -262,14 +268,42 @@ export default {
         newCustomer() {
             this.isForm = true; //MENGUBAH VALUE isForm MENJADI TRUE
         },
-         submit() {
-            this.isSuccess = false
-            this.createTransaction(this.transactions).then(() => this.isSuccess = true)
+        submit() {
+            this.isSuccess = false;
+            //FILTER DATANYA DENGAN KONDISI LAUNDRY_PRICE != NULL
+            let filter = _.filter(this.transactions.detail, function (item) {
+                return item.laundry_price != null;
+            });
+            //KEMUDIAN DIHITUNG, JIKA JUMLAH DATA YANG SUDAH DIFILTER LEBIH DARI 0
+            if (filter.length > 0) {
+                //MAKA INSTRUKSI UNTUK MEMBUAT TRANSAKSI DIJALANKAN
+                this.createTransaction(this.transactions).then(
+                    () => (this.isSuccess = true)
+                );
+            }
+        },
+        addProduct() {
+            if (this.filterProduct.length == 0) {
+                this.transactions.detail.push({
+                    laundry_price: null,
+                    qty: null,
+                    price: 0,
+                    subtotal: 0,
+                });
+            }
+        },
+        resetForm() {
+            this.transactions = {
+                customer_id: null,
+                detail: [
+                    { laundry_price: null, qty: 1, price: 0, subtotal: 0 },
+                ],
+            };
         },
     },
     components: {
         vSelect,
-        "form-customer": FormCustomer
-    }
+        "form-customer": FormCustomer,
+    },
 };
 </script>
