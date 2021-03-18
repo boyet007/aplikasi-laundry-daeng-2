@@ -27,9 +27,10 @@ import IndexCustomer from "./pages/customers/Index.vue";
 import DataCustomer from "./pages/customers/Customer.vue";
 import AddCustomer from "./pages/customers/Add.vue";
 import EditCustomer from "./pages/customers/Edit.vue";
-import IndexTransaction from './pages/transaction/Index.vue'
-import AddTransaction from './pages/transaction/Add.vue'
-import ViewTransaction from './pages/transaction/View.vue'
+import IndexTransaction from "./pages/transaction/Index.vue";
+import AddTransaction from "./pages/transaction/Add.vue";
+import ViewTransaction from "./pages/transaction/View.vue";
+import ListTransaction from './pages/transaction/List.vue'
 Vue.use(Router);
 
 //DEFINE ROUTE
@@ -173,21 +174,27 @@ const router = new Router({
             ]
         },
         {
-            path: '/transactions',
+            path: "/transactions",
             component: IndexTransaction,
             meta: { requiresAuth: true },
             children: [{
-                    path: 'create',
-                    name: 'transactions.add',
+                    path: "create",
+                    name: "transactions.add",
                     component: AddTransaction,
-                    meta: { title: 'Create New Transaction' }
+                    meta: { title: "Create New Transaction" }
                 },
                 {
-                    path: 'view/:id',
-                    name: 'transactions.view',
+                    path: "view/:id",
+                    name: "transactions.view",
                     component: ViewTransaction,
-                    meta: { title: 'View Transaction' }
+                    meta: { title: "View Transaction" }
                 },
+                {
+                    path: "list",
+                    name: "transactions.list",
+                    component: ListTransaction,
+                    meta: { title: "List Transaction" }
+                }
             ]
         },
         {

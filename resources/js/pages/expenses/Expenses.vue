@@ -26,6 +26,9 @@
                     :fields="fields"
                     show-empty
                 >
+                    <template #cell(price)="row">
+                        <p>Rp {{ row.item.price }}</p>
+                                          </template>
                     <template #cell(status)="row">
                         <span
                             class="label label-success"
