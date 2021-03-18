@@ -5356,6 +5356,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5376,7 +5385,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           price: 0,
           subtotal: 0
         }]
-      }
+      },
+      transaction_id: null
     };
   },
   computed: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapState)(["errors"])), (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapState)("transaction", {
@@ -5475,8 +5485,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       if (filter.length > 0) {
         //MAKA INSTRUKSI UNTUK MEMBUAT TRANSAKSI DIJALANKAN
-        this.createTransaction(this.transactions).then(function () {
-          return _this2.isSuccess = true;
+        this.createTransaction(this.transactions).then(function (res) {
+          _this2.transaction_id = res.data.id;
+          _this2.isSuccess = true;
         });
       }
     }
@@ -5542,6 +5553,295 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     'breadcrumb': _components_Breadcrumb_vue__WEBPACK_IMPORTED_MODULE_0__.default
   }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/transaction/View.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/transaction/View.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "DetailTransaction",
+  created: function created() {
+    //KETIKA COMPONENT DI-LOAD, MAKA KITA LOAD DATA TRANSAKSI BERDASARKAN ID TRANSAKSI YANG DI DAPATKAN DARI URL
+    this.detailTransaction(this.$route.params.id);
+  },
+  data: function data() {
+    //DEFINISIKAN VARIABLE YANG NNTINYA DIGUNAKAN UNTUK PAYMENT
+    return {
+      amount: null,
+      customer_change: false,
+      loading: false,
+      payment_message: null,
+      payment_success: false
+    };
+  },
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapState)("transaction", {
+    //MENGAMBIL DATA TRANSAKSI YANG TELAH DISIMPAN KE DALAM STATE TRANSACTION
+    transaction: function transaction(state) {
+      return state.transaction;
+    }
+  })), {}, {
+    //TAMBAHKAN KEDUA CODE DIBAWAH INI
+    isCustomerChange: function isCustomerChange() {
+      return this.amount > this.transaction.amount; //BERNILAI TRUE/FALSE SESUAI KONDISINYA
+    },
+    customerChangeAmount: function customerChangeAmount() {
+      return parseInt(this.amount - this.transaction.amount); //SELISIH ANTARA TAGIHAN DAN JUMLAH YANG DIBAYARKAN
+    }
+  }),
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)("transaction", ["detailTransaction", "completeItem", "payment"])), {}, {
+    makePayment: function makePayment() {
+      var _this = this;
+
+      //JIKA JUMLAH PEMBAYARAN KURANG DARI TAGIHAN
+      if (this.amount < this.transaction.amount) {
+        //MAKA SET NOTIF ERROR
+        this.payment_message = "Pembayaran Kurang Dari Tagihan"; //HENTIKAN PROSES
+
+        return;
+      } //SELAIN ITU, MAKA SET LOADING JADI TRUE
+
+
+      this.loading = true; //BUAT REQUEST KE SERVER
+
+      this.payment({
+        //DENGAN MENGIRIMKAN PARAMETER BERIKUT
+        transaction_id: this.$route.params.id,
+        amount: this.amount,
+        customer_change: this.customer_change
+      }).then(function () {
+        //SET BAHWA PAYMENT BERHASIL, DIGUNAKAN OLEH ALERT NNTINYA
+        _this.payment_success = true;
+        setTimeout(function () {
+          //SET LOADING JADI FALSE KEMBALI
+          _this.loading = false; //SET SEMUA VARIABLE JADI KOSONG
+
+          _this.amount = null, _this.customer_change = false, _this.payment_message = null;
+        }, 500); //AMBIL DATA TRANSAKSI TERBARU
+
+        _this.detailTransaction(_this.$route.params.id);
+      });
+    },
+    //KETIKA TOMBOL MASING-MASING PESANAN DIKLIK
+    isDone: function isDone(id) {
+      var _this2 = this;
+
+      //MAKA KITA MENAMPILKAN ALERT KONFIRMASI
+      this.$swal({
+        title: "Kamu Yakin?",
+        text: "Akan menyelesaikan pesanan ini!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Iya, Lanjutkan!"
+      }).then(function (result) {
+        if (result.value) {
+          //JIKA SETUJU MAKA KIRIM PERMINTAAN KE SERVER
+          _this2.completeItem({
+            id: id
+          }).then(function () {
+            //JIKA BERHASIL, MAKA LOAD DATA TRASANSAKSI TERBARU
+            _this2.detailTransaction(_this2.$route.params.id);
+          });
+        }
+      });
+    }
+  })
 });
 
 /***/ }),
@@ -5734,8 +6034,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _pages_Home_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./pages/Home.vue */ "./resources/js/pages/Home.vue");
 /* harmony import */ var _pages_Login_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./pages/Login.vue */ "./resources/js/pages/Login.vue");
 /* harmony import */ var _store_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./store.js */ "./resources/js/store.js");
@@ -5764,6 +6064,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_customers_Edit_vue__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./pages/customers/Edit.vue */ "./resources/js/pages/customers/Edit.vue");
 /* harmony import */ var _pages_transaction_Index_vue__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./pages/transaction/Index.vue */ "./resources/js/pages/transaction/Index.vue");
 /* harmony import */ var _pages_transaction_Add_vue__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./pages/transaction/Add.vue */ "./resources/js/pages/transaction/Add.vue");
+/* harmony import */ var _pages_transaction_View_vue__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./pages/transaction/View.vue */ "./resources/js/pages/transaction/View.vue");
 //IMPORT SECTION
 
 
@@ -5795,9 +6096,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_28__.default.use(vue_router__WEBPACK_IMPORTED_MODULE_29__.default); //DEFINE ROUTE
 
-var router = new vue_router__WEBPACK_IMPORTED_MODULE_29__.default({
+vue__WEBPACK_IMPORTED_MODULE_29__.default.use(vue_router__WEBPACK_IMPORTED_MODULE_30__.default); //DEFINE ROUTE
+
+var router = new vue_router__WEBPACK_IMPORTED_MODULE_30__.default({
   mode: "history",
   routes: [{
     path: "/",
@@ -5969,6 +6271,13 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_29__.default({
       component: _pages_transaction_Add_vue__WEBPACK_IMPORTED_MODULE_27__.default,
       meta: {
         title: 'Create New Transaction'
+      }
+    }, {
+      path: 'view/:id',
+      name: 'transactions.view',
+      component: _pages_transaction_View_vue__WEBPACK_IMPORTED_MODULE_28__.default,
+      meta: {
+        title: 'View Transaction'
       }
     }]
   }, {
@@ -6940,6 +7249,7 @@ var state = function state() {
     //UNTUK MENAMPUNG DATA CUSTOMER YANG DI-REQUEST
     products: [],
     //UNTUK MENAMPUNG DATA PRODUCT YANG DI-REQUEST
+    transaction: [],
     page: 1
   };
 };
@@ -6955,6 +7265,9 @@ var mutations = {
   },
   SET_PAGE: function SET_PAGE(state, payload) {
     state.page = payload;
+  },
+  ASSIGN_TRANSACTION: function ASSIGN_TRANSACTION(state, payload) {
+    state.transaction = payload;
   }
 };
 var actions = {
@@ -6967,7 +7280,7 @@ var actions = {
     return new Promise(function (resolve, reject) {
       _api_js__WEBPACK_IMPORTED_MODULE_0__.default.get("/customer?page=".concat(state.page, "&q=").concat(search)).then(function (response) {
         //JIKA BERHASIL, SIMPAN DATANYA KE STATE
-        commit('ASSIGN_DATA', response.data);
+        commit("ASSIGN_DATA", response.data);
         payload.loading(false);
         resolve(response.data);
       });
@@ -6982,7 +7295,7 @@ var actions = {
     return new Promise(function (resolve, reject) {
       _api_js__WEBPACK_IMPORTED_MODULE_0__.default.get("/product?page=".concat(state.page, "&q=").concat(search)).then(function (response) {
         //APABILA BERHASIL, SIMPAN KE STATE PRODUCTS
-        commit('DATA_PRODUCT', response.data);
+        commit("DATA_PRODUCT", response.data);
         payload.loading(false);
         resolve(response.data);
       });
@@ -6994,6 +7307,33 @@ var actions = {
     return new Promise(function (resolve, reject) {
       //MENGIRIM PERMINTAAN KE SERVER UNTUK MEMBUAT TRANSAKSI
       _api_js__WEBPACK_IMPORTED_MODULE_0__.default.post("/transaction", payload).then(function (response) {
+        resolve(response.data);
+      });
+    });
+  },
+  detailTransaction: function detailTransaction(_ref4, payload) {
+    var commit = _ref4.commit;
+    //MENGIRIM PERMINTAAN KE SERVER UNTUK MENGAMBIL DATA BERDASARKAN ID TRANSAKSI
+    return new Promise(function (resolve, reject) {
+      _api_js__WEBPACK_IMPORTED_MODULE_0__.default.get("/transaction/".concat(payload, "/edit")).then(function (response) {
+        //DATANYA KITA SIMPAN KE DALAM STATE TRANSACTION MENGGUNAKAN MUTATION
+        commit("ASSIGN_TRANSACTION", response.data.data);
+        resolve(response.data);
+      });
+    });
+  },
+  completeItem: function completeItem(_ref5, payload) {
+    var commit = _ref5.commit;
+    return new Promise(function (resolve, reject) {
+      _api_js__WEBPACK_IMPORTED_MODULE_0__.default.post("/transaction/complete-item", payload).then(function (response) {
+        resolve(response.data);
+      });
+    });
+  },
+  payment: function payment(_ref6, payload) {
+    var commit = _ref6.commit;
+    return new Promise(function (resolve, reject) {
+      _api_js__WEBPACK_IMPORTED_MODULE_0__.default.post("/transaction/payment", payload).then(function (response) {
         resolve(response.data);
       });
     });
@@ -89162,6 +89502,45 @@ component.options.__file = "resources/js/pages/transaction/Index.vue"
 
 /***/ }),
 
+/***/ "./resources/js/pages/transaction/View.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/pages/transaction/View.vue ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _View_vue_vue_type_template_id_200201bf___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./View.vue?vue&type=template&id=200201bf& */ "./resources/js/pages/transaction/View.vue?vue&type=template&id=200201bf&");
+/* harmony import */ var _View_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./View.vue?vue&type=script&lang=js& */ "./resources/js/pages/transaction/View.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _View_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _View_vue_vue_type_template_id_200201bf___WEBPACK_IMPORTED_MODULE_0__.render,
+  _View_vue_vue_type_template_id_200201bf___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/pages/transaction/View.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/App.vue?vue&type=script&lang=js&":
 /*!*******************************************************!*\
   !*** ./resources/js/App.vue?vue&type=script&lang=js& ***!
@@ -89751,6 +90130,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Index.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/transaction/Index.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/pages/transaction/View.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/pages/transaction/View.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_View_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./View.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/transaction/View.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_View_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -90392,6 +90787,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_107f13a8___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_107f13a8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Index.vue?vue&type=template&id=107f13a8& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/transaction/Index.vue?vue&type=template&id=107f13a8&");
+
+
+/***/ }),
+
+/***/ "./resources/js/pages/transaction/View.vue?vue&type=template&id=200201bf&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/pages/transaction/View.vue?vue&type=template&id=200201bf& ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_View_vue_vue_type_template_id_200201bf___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_View_vue_vue_type_template_id_200201bf___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_View_vue_vue_type_template_id_200201bf___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./View.vue?vue&type=template&id=200201bf& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/transaction/View.vue?vue&type=template&id=200201bf&");
 
 
 /***/ }),
@@ -95172,7 +95584,25 @@ var render = function() {
             _vm._v(
               "\n            Transaksi Berhasil, Total Tagihan: Rp " +
                 _vm._s(_vm.total) +
-                "\n        "
+                "\n            "
+            ),
+            _c(
+              "strong",
+              [
+                _c(
+                  "router-link",
+                  {
+                    attrs: {
+                      to: {
+                        name: "transactions.view",
+                        params: { id: _vm.transaction_id }
+                      }
+                    }
+                  },
+                  [_vm._v("Lihat Detail")]
+                )
+              ],
+              1
             )
           ])
         ])
@@ -95239,6 +95669,375 @@ var render = function() {
   ])
 }
 var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/transaction/View.vue?vue&type=template&id=200201bf&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/transaction/View.vue?vue&type=template&id=200201bf& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "col-md-12" }, [
+    _c("div", { staticClass: "panel" }, [
+      _c("div", { staticClass: "panel-body" }, [
+        _c("div", { staticClass: "row" }, [
+          _vm.transaction.status == 0
+            ? _c("div", { staticClass: "col-md-6" }, [
+                _c("h4", [_vm._v("Payment")]),
+                _vm._v(" "),
+                _c("hr"),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "" } }, [_vm._v("Tagihan")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    staticClass: "form-control",
+                    attrs: { type: "text", readonly: "" },
+                    domProps: { value: _vm.transaction.amount }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "" } }, [_vm._v("Jumlah Bayar")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.amount,
+                        expression: "amount"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "number" },
+                    domProps: { value: _vm.amount },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.amount = $event.target.value
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _vm.isCustomerChange
+                  ? _c("p", [
+                      _vm._v(
+                        "\n                        Kembalian: Rp " +
+                          _vm._s(_vm.customerChangeAmount) +
+                          "\n                    "
+                      )
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.isCustomerChange
+                  ? _c("div", { staticClass: "form-group" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.customer_change,
+                            expression: "customer_change"
+                          }
+                        ],
+                        attrs: { type: "checkbox", id: "customer_change" },
+                        domProps: {
+                          checked: Array.isArray(_vm.customer_change)
+                            ? _vm._i(_vm.customer_change, null) > -1
+                            : _vm.customer_change
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.customer_change,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  (_vm.customer_change = $$a.concat([$$v]))
+                              } else {
+                                $$i > -1 &&
+                                  (_vm.customer_change = $$a
+                                    .slice(0, $$i)
+                                    .concat($$a.slice($$i + 1)))
+                              }
+                            } else {
+                              _vm.customer_change = $$c
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("label", { attrs: { for: "customer_change" } }, [
+                        _vm._v(
+                          "\n                            Kembalian Jadi Deposit?"
+                        )
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.payment_message
+                  ? _c("p", { staticClass: "text-danger" }, [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.payment_message) +
+                          "\n                    "
+                      )
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary btn-sm",
+                    attrs: { disabled: _vm.loading },
+                    on: { click: _vm.makePayment }
+                  },
+                  [
+                    _vm._v(
+                      "\n                        Bayar\n                    "
+                    )
+                  ]
+                )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.transaction.customer
+            ? _c("div", { staticClass: "col-md-6" }, [
+                _c("h4", [_vm._v("Customer Info")]),
+                _vm._v(" "),
+                _c("hr"),
+                _vm._v(" "),
+                _c("table", [
+                  _c("tr", [
+                    _c("th", { attrs: { width: "30%" } }, [_vm._v("NIK")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { width: "5%" } }, [_vm._v(":")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.transaction.customer.nik))])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", [_vm._v("No Telp")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(":")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.transaction.customer.phone))])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", [_vm._v("Alamat")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(":")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.transaction.customer.address))])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", [_vm._v("Deposit")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(":")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v("Rp " + _vm._s(_vm.transaction.customer.deposit))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", [_vm._v("Point")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(":")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.transaction.customer.point))])
+                  ])
+                ])
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.transaction.payment
+            ? _c("div", { staticClass: "col-md-6" }, [
+                _c("h4", [_vm._v("Riwayat Pemabayaran")]),
+                _vm._v(" "),
+                _c("hr"),
+                _vm._v(" "),
+                _c("table", [
+                  _c("tr", [
+                    _c("th", { attrs: { width: "30%" } }, [
+                      _vm._v("Jumlah Pembayaran")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { width: "5%" } }, [_vm._v(":")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v("Rp " + _vm._s(_vm.transaction.payment.amount))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", [_vm._v("Kembalian")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(":")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(
+                        "\n                                Rp " +
+                          _vm._s(_vm.transaction.payment.customer_change) +
+                          "\n                            "
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("th", [_vm._v("Metode Pembayaran")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(":")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(_vm._s(_vm.transaction.payment.type_label))
+                    ])
+                  ])
+                ])
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "col-md-12",
+              staticStyle: { "padding-top": "20px" }
+            },
+            [
+              _vm.payment_success
+                ? _c("div", { staticClass: "alert alert-success" }, [
+                    _vm._v(
+                      "\n                        Pembayaran Berhasil\n                    "
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _c("h4", [_vm._v("Detail Transaction")]),
+              _vm._v(" "),
+              _c("hr"),
+              _vm._v(" "),
+              _c("div", { staticClass: "table-responsive" }, [
+                _c(
+                  "table",
+                  { staticClass: "table table-hover table-bordered" },
+                  [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.transaction.detail, function(row, index) {
+                        return _c("tr", { key: index }, [
+                          _c("td", [
+                            _c("strong", [_vm._v(_vm._s(row.product.name))]),
+                            _vm._v(" "),
+                            _c("sup", {
+                              domProps: { innerHTML: _vm._s(row.status_label) }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(row.service_time))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(
+                              "\n                                        " +
+                                _vm._s(row.qty) +
+                                " (" +
+                                _vm._s(row.product.unit_type) +
+                                ")\n                                    "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(
+                              "\n                                        Rp " +
+                                _vm._s(row.price) +
+                                " /\n                                        " +
+                                _vm._s(row.product.unit_type) +
+                                "\n                                    "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v("Rp " + _vm._s(row.subtotal))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm.transaction.status == 1 && row.status == 0
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-success btn-sm",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.isDone(row.id)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "fa fa-paper-plane-o"
+                                    })
+                                  ]
+                                )
+                              : _vm._e()
+                          ])
+                        ])
+                      }),
+                      0
+                    )
+                  ]
+                )
+              ])
+            ]
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Paket")]),
+        _vm._v(" "),
+        _c("th", { attrs: { width: "28%" } }, [_vm._v("Waktu Layanan")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Berat/Satuan")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Harga")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Subtotal")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Actions")])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

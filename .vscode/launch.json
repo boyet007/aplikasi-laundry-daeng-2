@@ -8,7 +8,7 @@
             "program": "",
             "port": 9003,
             "pathMappings": {
-                "/home/vagrant/code/aplikasi-laundry-daeng-2": "${workspaceFolder}"
+                "/home/vagrant/code/laundry-daeng": "${workspaceFolder}"
             }
         }
     ]

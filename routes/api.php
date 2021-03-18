@@ -40,6 +40,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     Route::resource('customer', CustomerController::class)->except(['create', 'show']);
     Route::resource('transaction', TransactionController::class)->except(['create', 'show']);
+    Route::post('transaction/complete-item', [TransactionController::class, 'completeItem']);
+    Route::post('transaction/payment', [TransactionController::class, 'makePayment']);
 });
 
 
