@@ -10,6 +10,7 @@ use App\Http\Controllers\API\RolePermissionController;
 use App\Http\Controllers\API\ExpensesController;
 use App\Http\Controllers\API\CustomerController;
 use App\Http\Controllers\API\TransactionController;
+use App\Http\Controllers\API\DashboardController;
 
 use App\Http\Controllers\API\NotificationController;
 
@@ -42,6 +43,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::resource('transaction', TransactionController::class)->except(['create', 'show']);
     Route::post('transaction/complete-item', [TransactionController::class, 'completeItem']);
     Route::post('transaction/payment', [TransactionController::class, 'makePayment']);
+    Route::get('chart', [DashboardController::class, 'chart']);
+    Route::get('export', [DashboardController::class, 'exportData']);
 });
 
 

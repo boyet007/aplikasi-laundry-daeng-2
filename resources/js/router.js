@@ -213,7 +213,7 @@ const router = new Router({
 
 //Navigation Guards
 router.beforeEach((to, from, next) => {
-    store.commit("CLEAR_ERRORS"); //TAMBAHKAN BARIS INI
+    store.commit("CLEAR_ERRORS");
     if (to.matched.some(record => record.meta.requiresAuth)) {
         let auth = store.getters.isAuth;
         if (!auth) {

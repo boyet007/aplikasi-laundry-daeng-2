@@ -76,5 +76,9 @@ akses folder storage oleh public :
 - php artisan storage:link
 jangna lupa set vagrant sebagai admin dahulu 
 
+## Excel :
+- composer require maatwebsite/excel
+- php artisan make:export TransactionExport --model=Transaction
+
 ## Daftar isi :
 https://daengweb.id/daftar-isi

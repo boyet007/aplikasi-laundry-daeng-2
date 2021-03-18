@@ -6,9 +6,9 @@
             "type": "php",
             "request": "launch",
             "program": "",
-            "port": 9003,
+            "port": 9000,
             "pathMappings": {
-                "/home/vagrant/code/laundry-daeng": "${workspaceFolder}"
+                "/home/vagrant/code/aplikasi-laundry-daeng-2": "${workspaceFolder}"
             }
         }
     ]
